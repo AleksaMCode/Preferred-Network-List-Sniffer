@@ -1,7 +1,6 @@
 import os
 import re
 import subprocess
-import sys
 
 TRAFFIC_FILE = "traffic"
 
@@ -23,8 +22,3 @@ def capture_traffic(interface):
         ["airodump-ng", "-w", TRAFFIC_FILE, "--output-format", "cap", interface],
         capture_output=True,
     )
-
-
-clear_old_traffic()
-# TODO: Run sniffing on a new thread.
-capture_traffic(f"{sys.argv[1]}mon")    

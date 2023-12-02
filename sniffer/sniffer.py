@@ -15,7 +15,7 @@ def clear_old_traffic():
             os.remove(file)
 
 
-def sniff(interface):
+def capture_traffic(interface):
     """
     Capture Wi-Fi traffic using airodump-ng and store data in a cap file.
     """
@@ -27,4 +27,4 @@ def sniff(interface):
 
 clear_old_traffic()
 # TODO: Run sniffing on a new thread.
-sniff(f"{sys.argv[1]}mon")
+capture_traffic(f"{sys.argv[1]}mon")    

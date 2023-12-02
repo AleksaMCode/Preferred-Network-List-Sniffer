@@ -17,7 +17,12 @@ def parse_traffic_file() -> Dict[str, str]:
     # TODO: Optimize by implementing skipping already read packages.
     for package in capture:
         # Filter only Probe Request and ignore Probe Requests with wildcard in the SSID field.
-        if "Type/Subtype: Probe Request" in str(package.wlan) and "Wildcard" not in package['wlan.mgt'].wlan_tag:
-            ssid = package['wlan.mgt'].wlan_ssid
-            ssids[ssid] = datetime.utcfromtimestamp(float(package.sniff_timestamp)).strftime('%Y-%m-%d %H:%M:%S')
+        if (
+            "Type/Subtype: Probe Request" in str(package.wlan)
+            and "Wildcard" not in package["wlan.mgt"].wlan_tag
+        ):
+            ssid = package["wlan.mgt"].wlan_ssid
+            ssids[ssid] = datetime.utcfromtimestamp(
+                float(package.sniff_timestamp)
+            ).strftime("%Y-%m-%d %H:%M:%S")
     return ssids

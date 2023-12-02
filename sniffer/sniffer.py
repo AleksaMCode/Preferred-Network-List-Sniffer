@@ -16,6 +16,9 @@ def clear_old_traffic():
 
 
 def sniff(interface):
+    """
+    Capture Wi-Fi traffic using airodump-ng and store data in a cap file.
+    """
     subprocess.run(
         ["airodump-ng", "-w", TRAFFIC_FILE, "--output-format", "cap", interface],
         capture_output=True,
@@ -23,5 +26,5 @@ def sniff(interface):
 
 
 clear_old_traffic()
-# TODO: Run sniffing on new thread.
+# TODO: Run sniffing on a new thread.
 sniff(f"{sys.argv[1]}mon")

@@ -1,3 +1,3 @@
 #!/bin/bash
 airmon-ng start $1
-python3 sniffer.py $1
+python3 pnls.py $1

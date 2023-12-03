@@ -22,8 +22,6 @@ def capture_traffic(interface):
     total_time = 30
     start_time = time.time()
 
-    print(os.path.join(os.path.dirname(__file__), TRAFFIC_FILE))
-
     handle = subprocess.Popen(
         [
             "sudo",
@@ -37,8 +35,9 @@ def capture_traffic(interface):
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
     )
+    
     while time.time() < start_time + total_time:
         pass
-    print(handle)
+    
     handle.terminate()
     handle.wait()

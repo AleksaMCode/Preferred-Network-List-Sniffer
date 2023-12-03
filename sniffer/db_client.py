@@ -6,8 +6,7 @@ from firebase_admin import db, credentials
 
 from parser import parse_traffic_file
 
-CONFIG_FILE_NAME = "sniffer.config"
-CONFIG_FILE = json.load(open(os.path.join(os.path.dirname(__file__), CONFIG_FILE_NAME)))
+CONFIG_FILE = json.load(open(os.path.join(os.path.dirname(__file__), "sniffer.config")))
 
 # Create a new app instance using the credentials and database name.
 firebase_admin.initialize_app(

@@ -38,6 +38,3 @@ def send_data():
     while True:
         upload_to_firebase(timestamp)
         time.sleep(CONFIG_FILE["database_wait_time"])
-
-
-send_data()

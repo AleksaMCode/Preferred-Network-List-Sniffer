@@ -1,8 +1,7 @@
 import unittest
 import datetime
 
-import firebase_admin
-from firebase_admin import db, credentials
+from firebase_admin import db
 
 from db_client import upload_to_firebase
 from parser import parse_traffic_file
@@ -14,13 +13,6 @@ class TestDbClient(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.node = f"{datetime.datetime.now().strftime('%Y%m%d')}-test"
-        cred = credentials.Certificate("firebase_credentials.json")
-        firebase_admin.initialize_app(
-            cred,
-            {
-                "databaseURL": "https://pnl-sniffer-default-rtdb.europe-west1.firebasedatabase.app/"
-            },
-        )
 
     @classmethod
     def tearDownClass(cls):

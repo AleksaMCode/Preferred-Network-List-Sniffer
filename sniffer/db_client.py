@@ -36,6 +36,4 @@ def send_data():
 
     # Timestamp is used to name the main node for storing data. The format is 'year + month + day', e.q. 20231202.
     timestamp = datetime.datetime.now().strftime("%Y%m%d")
-    while True:
-        upload_to_firebase(timestamp)
-        time.sleep(CONFIG_FILE["database_wait_time"])
+    upload_to_firebase(timestamp)

@@ -1,6 +1,7 @@
 import os
 import re
 import subprocess
+import time
 
 TRAFFIC_FILE = "traffic"
 
@@ -18,8 +19,14 @@ def capture_traffic(interface):
     """
     Capture Wi-Fi traffic using airodump-ng and store data in a cap file.
     """
-    subprocess.run(
+    total_time = 30
+    start_time = time.time()
+
+    print(os.path.join(os.path.dirname(__file__), TRAFFIC_FILE))
+
+    handle = subprocess.Popen(
         [
+            "sudo",
             "airodump-ng",
             "-w",
             os.path.join(os.path.dirname(__file__), TRAFFIC_FILE),
@@ -27,5 +34,11 @@ def capture_traffic(interface):
             "cap",
             interface,
         ],
-        capture_output=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
     )
+    while time.time() < start_time + total_time:
+        pass
+    print(handle)
+    handle.terminate()
+    handle.wait()

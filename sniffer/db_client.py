@@ -10,8 +10,10 @@ CONFIG_FILE_NAME = "sniffer.config"
 CONFIG_FILE = json.load(open(os.path.join(os.path.dirname(__file__), CONFIG_FILE_NAME)))
 
 # Create a new app instance using the credentials and database name.
-firebase_admin.initialize_app(credentials.Certificate("firebase_credentials.json"),
-                              {list(CONFIG_FILE.keys())[0]: CONFIG_FILE[list(CONFIG_FILE.keys())[0]]})
+firebase_admin.initialize_app(
+    credentials.Certificate("firebase_credentials.json"),
+    {list(CONFIG_FILE.keys())[0]: CONFIG_FILE[list(CONFIG_FILE.keys())[0]]},
+)
 
 
 def upload_to_firebase(node):

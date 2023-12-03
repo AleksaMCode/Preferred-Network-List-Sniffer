@@ -17,7 +17,8 @@ def upload_to_firebase(node):
     Upload sniffed data to firebase database using `update` function.
     """
     data = parse_traffic_file()
-    db.reference(f"/{node}").update(data)
+    if data:
+        db.reference(f"/{node}").update(data)
 
 
 def send_data():

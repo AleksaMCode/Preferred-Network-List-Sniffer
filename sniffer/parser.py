@@ -15,22 +15,15 @@ def parse_traffic_file() -> Dict[str, str]:
     ssids = {}
     # airodump-ng names output with an automatic numbers, where the first file contains '-01'.
     filename = os.path.join(os.path.dirname(__file__), f"{TRAFFIC_FILE}-01.cap")
-    capture = None
-    # Loop while file doesn't exist.
-    while not os.path.isfile(filename):
-        if os.path.isfile(filename):
-            capture = pyshark.FileCapture(filename)
-            break
+    capture = pyshark.FileCapture(filename)
 
     # TODO: Optimize by implementing skipping already read packages.
     for package in capture:
         # Filter only Probe Request and ignore Probe Requests with wildcard in the SSID field.
-        if (
-            "Type/Subtype: Probe Request" in str(package.wlan)
-            and "Wildcard" not in package["wlan.mgt"].wlan_tag
-        ):
-            ssid = package["wlan.mgt"].wlan_ssid
-            ssids[ssid] = datetime.utcfromtimestamp(
-                float(package.sniff_timestamp)
-            ).strftime("%Y-%m-%d %H:%M:%S")
+        if int(package["wlan"].fc, 16) == 16384:
+            ssid = package["wlan.mgt"].wlan_tag.split(":")[2].strip().strip('"')
+            if "Wildcard" not in ssid:
+                ssids[ssid] = datetime.utcfromtimestamp(
+                    float(package.sniff_timestamp)
+                ).strftime("%Y-%m-%d %H:%M:%S")
     return ssids

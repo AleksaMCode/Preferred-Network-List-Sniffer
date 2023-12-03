@@ -35,9 +35,9 @@ def capture_traffic(interface):
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
     )
-    
+
     while time.time() < start_time + total_time:
         pass
-    
+
     handle.terminate()
     handle.wait()

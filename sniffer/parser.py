@@ -14,9 +14,14 @@ def parse_traffic_file() -> Dict[str, str]:
     """
     ssids = {}
     # airodump-ng names output with an automatic numbers, where the first file contains '-01'.
-    capture = pyshark.FileCapture(
-        os.path.join(os.path.dirname(__file__), f"{TRAFFIC_FILE}-01.cap")
-    )
+    filename = os.path.join(os.path.dirname(__file__), f"{TRAFFIC_FILE}-01.cap")
+    capture = None
+    # Loop while file doesn't exist.
+    while not os.path.isfile(filename):
+        if os.path.isfile(filename):
+            capture = pyshark.FileCapture(filename)
+            break
+
     # TODO: Optimize by implementing skipping already read packages.
     for package in capture:
         # Filter only Probe Request and ignore Probe Requests with wildcard in the SSID field.

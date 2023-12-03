@@ -15,7 +15,12 @@ class TestDbClient(unittest.TestCase):
     def setUpClass(cls) -> None:
         cls.node = f"{datetime.datetime.now().strftime('%Y%m%d')}-test"
         cred = credentials.Certificate("firebase_credentials.json")
-        firebase_admin.initialize_app(cred, {"databaseURL": "https://pnl-sniffer-default-rtdb.europe-west1.firebasedatabase.app/"})
+        firebase_admin.initialize_app(
+            cred,
+            {
+                "databaseURL": "https://pnl-sniffer-default-rtdb.europe-west1.firebasedatabase.app/"
+            },
+        )
 
     @classmethod
     def tearDownClass(cls):

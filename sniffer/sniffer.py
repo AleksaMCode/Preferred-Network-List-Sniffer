@@ -19,6 +19,13 @@ def capture_traffic(interface):
     Capture Wi-Fi traffic using airodump-ng and store data in a cap file.
     """
     subprocess.run(
-        ["airodump-ng", "-w", os.path.join(os.path.dirname(__file__),TRAFFIC_FILE), "--output-format", "cap", interface],
+        [
+            "airodump-ng",
+            "-w",
+            os.path.join(os.path.dirname(__file__), TRAFFIC_FILE),
+            "--output-format",
+            "cap",
+            interface,
+        ],
         capture_output=True,
     )

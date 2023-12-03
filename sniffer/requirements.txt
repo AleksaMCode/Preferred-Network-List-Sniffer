@@ -1,2 +1,2 @@
-pyshark
-firebase_admin
+pyshark=0.6
+firebase_admin=6.2.0

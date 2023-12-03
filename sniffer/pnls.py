@@ -6,7 +6,12 @@ from db_client import upload_to_firebase
 from sniffer import clear_old_traffic, capture_traffic
 from loguru import logger
 
-logger.add("pnls.log", format="[%(asctime)s: %(levelname)s] %(message)s]", rotation="30 days", retention=5)
+logger.add(
+    "pnls.log",
+    format="[{time}: {level}] {message}]",
+    rotation="30 days",
+    retention=5,
+)
 
 if __name__ == "__main__":
     # Timestamp is used to name the main node for storing data. The format is 'year + month + day', e.q. 20231202.

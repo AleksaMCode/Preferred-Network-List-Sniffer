@@ -2,6 +2,7 @@ import os
 import re
 import subprocess
 import time
+from tqdm import tqdm
 
 TRAFFIC_FILE = "traffic"
 
@@ -36,9 +37,10 @@ def capture_traffic(interface):
         stderr=subprocess.STDOUT,
     )
 
-    # Wait `total_time` sec. before terminating.
-    while time.time() < start_time + total_time:
-        pass
+    with tqdm(total=total_time, bar_format="{l_bar}{bar} [ time left: {remaining}, time spent: {elapsed}]") as pbar:
+        # Wait `total_time` sec. before terminating.
+        while time.time() < start_time + total_time:
+            pbar.update(1)
 
     handle.terminate()
     handle.wait()

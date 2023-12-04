@@ -1,33 +1,33 @@
-import InitFirebase from "../databaseConfig/index";
-import React from "react";
-import { ref, onValue } from "firebase/database";
-import { Table } from "react-bootstrap";
-import dateFormat from "dateformat";
+import InitFirebase from '../databaseConfig/index'
+import React from 'react'
+import { ref, onValue } from 'firebase/database'
+import { Table } from 'react-bootstrap'
+import dateFormat from 'dateformat'
 
-const db = InitFirebase();
-console.log(db);
+const db = InitFirebase()
+console.log(db)
 export class PnlData extends React.Component {
   constructor() {
-    super();
+    super()
     this.state = {
       tableData: [],
-    };
+    }
   }
 
   componentDidMount() {
-    console.log("/" + dateFormat(new Date(), "yyyymmdd"));
-    const dbRef = ref(db, "/" + dateFormat(new Date(), "yyyymmdd"));
+    console.log('/' + dateFormat(new Date(), 'yyyymmdd'))
+    const dbRef = ref(db, '/' + dateFormat(new Date(), 'yyyymmdd'))
 
     onValue(dbRef, (snapshot) => {
-      let records = [];
+      let records = []
       snapshot.forEach((childSnapshot) => {
-        let keyName = childSnapshot.key;
-        let data = childSnapshot.val();
-        records.push({ key: keyName, data: data });
-      });
-      console.log(records);
-      this.setState({ tableData: records });
-    });
+        let keyName = childSnapshot.key
+        let data = childSnapshot.val()
+        records.push({ key: keyName, data: data })
+      })
+      console.log(records)
+      this.setState({ tableData: records })
+    })
   }
 
   render() {
@@ -48,10 +48,10 @@ export class PnlData extends React.Component {
                 <td>{row.key}</td>
                 <td>{row.data.timestamp}</td>
               </tr>
-            );
+            )
           })}
         </tbody>
       </Table>
-    );
+    )
   }
 }

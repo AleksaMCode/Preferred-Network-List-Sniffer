@@ -1,5 +1,5 @@
-import { initializeApp } from "firebase/app";
-import { getDatabase } from "@firebase/database";
+import { initializeApp } from 'firebase/app'
+import { getDatabase } from '@firebase/database'
 
 function InitFirebase() {
   const firebaseConfig = {
@@ -10,9 +10,9 @@ function InitFirebase() {
     storageBucket: process.env.REACT_APP_storageBucket,
     messagingSenderId: process.env.REACT_APP_messagingSenderId,
     appId: process.env.REACT_APP_appId,
-  };
-  const app = initializeApp(firebaseConfig);
-  return getDatabase(app);
+  }
+  const app = initializeApp(firebaseConfig)
+  return getDatabase(app)
 }
 
-export default InitFirebase;
+export default InitFirebase

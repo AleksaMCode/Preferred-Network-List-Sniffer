@@ -1,9 +1,9 @@
-import { PnlData } from "./components/pnlData";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./App.css";
+import { PnlData } from './components/pnlData'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import './App.css'
 
 function App() {
-  return <PnlData />;
+  return <PnlData />
 }
 
-export default App;
+export default App

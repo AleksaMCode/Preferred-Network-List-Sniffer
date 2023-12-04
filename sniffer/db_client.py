@@ -1,8 +1,8 @@
 import json
 import os
-
 import firebase_admin
 from firebase_admin import db, credentials
+from yaspin import yaspin
 
 from parser import parse_traffic_file
 
@@ -21,4 +21,7 @@ def upload_to_firebase(node):
     """
     data = parse_traffic_file()
     if data:
+        spinner = yaspin(text="Uploading data to database...")
+        spinner.start()
         db.reference(f"/{node}").update(data)
+        spinner.stop()

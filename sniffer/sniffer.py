@@ -2,11 +2,12 @@ import os
 import re
 import subprocess
 import time
-from tqdm import tqdm
+from yaspin import yaspin
 
 TRAFFIC_FILE = "traffic"
 
 
+@yaspin(text="Deleting file(s)...")
 def clear_old_traffic():
     """
     Removes old traffic files
@@ -16,6 +17,7 @@ def clear_old_traffic():
             os.remove(file)
 
 
+@yaspin(text="Capturing packages...")
 def capture_traffic(interface):
     """
     Capture Wi-Fi traffic using airodump-ng and store data in a cap file.
@@ -37,10 +39,9 @@ def capture_traffic(interface):
         stderr=subprocess.STDOUT,
     )
 
-    with tqdm(total=total_time, bar_format="{l_bar}{bar} [ time left: {remaining}, time spent: {elapsed}]") as pbar:
-        # Wait `total_time` sec. before terminating.
-        while time.time() < start_time + total_time:
-            pbar.update(1)
+    # Wait `total_time` sec. before terminating.
+    while time.time() < start_time + total_time:
+        pass
 
     handle.terminate()
     handle.wait()

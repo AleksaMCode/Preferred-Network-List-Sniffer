@@ -3,10 +3,12 @@ from typing import Dict
 
 import pyshark
 from datetime import datetime
+from yaspin import yaspin
 
 from sniffer import TRAFFIC_FILE
 
 
+@yaspin(text="Parsing SSIDs from PNL...")
 def parse_traffic_file() -> Dict[str, str]:
     """
     Parse *.cap file in order to get SSIDs from device's Preferred Network List.

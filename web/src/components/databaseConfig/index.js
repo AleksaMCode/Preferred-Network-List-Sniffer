@@ -14,3 +14,5 @@ function InitFirebase() {
   const app = initializeApp(firebaseConfig);
   return getFirestore(app);
 }
+
+export default InitFirebase;

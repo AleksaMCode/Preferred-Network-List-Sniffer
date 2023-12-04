@@ -8,7 +8,7 @@ from loguru import logger
 
 logger.add(
     "pnls.log",
-    format="[{time}: {level}] {message}]",
+    format="[{time}: {level}] {message}",
     rotation="30 days",
     retention=5,
 )

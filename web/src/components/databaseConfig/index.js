@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "@firebase/firestore";
+import { getDatabase } from "@firebase/database";
 
 function InitFirebase() {
   const firebaseConfig = {
@@ -12,7 +12,7 @@ function InitFirebase() {
     appId: process.env.REACT_APP_appId,
   };
   const app = initializeApp(firebaseConfig);
-  return getFirestore(app);
+  return getDatabase(app);
 }
 
 export default InitFirebase;

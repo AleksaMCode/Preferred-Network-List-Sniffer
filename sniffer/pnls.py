@@ -19,9 +19,9 @@ if __name__ == "__main__":
 
     while True:
         try:
-            logger.info("Clear old Wi-Fi traffic files.")
+            logger.info("Clear Wi-Fi traffic files.")
             clear_old_traffic()
-            logger.info("Capture PNL from Wi-Fi traffic.")
+            logger.info("Capture packages from Wi-Fi traffic.")
             capture_traffic(f"{sys.argv[1]}mon")
             logger.info("Upload PNL data to Firebase.")
             upload_to_firebase(timestamp)

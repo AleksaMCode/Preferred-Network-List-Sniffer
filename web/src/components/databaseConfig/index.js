@@ -3,14 +3,15 @@ import { getFirestore } from "@firebase/firestore";
 
 function InitFirebase() {
   const firebaseConfig = {
-    apiKey: process.env.firebaseApiKey,
-    authDomain: process.env.firebaseAuthDomain,
-    databaseURL: process.env.firebaseDatabaseURL,
-    projectId: process.env.firebaseProjectId,
-    storageBucket: process.env.firebaseStorageBucket,
-    messagingSenderId: process.env.firebaseMessagingSenderId,
-    appId: process.env.firebaseAppId,
+    apiKey: process.env.REACT_APP_apiKey,
+    authDomain: process.env.REACT_APP_authDomain,
+    databaseURL: process.env.REACT_APP_databaseURL,
+    projectId: process.env.REACT_APP_projectId,
+    storageBucket: process.env.REACT_APP_storageBucket,
+    messagingSenderId: process.env.REACT_APP_messagingSenderId,
+    appId: process.env.REACT_APP_appId,
   };
+  console.log(firebaseConfig);
   const app = initializeApp(firebaseConfig);
   return getFirestore(app);
 }

@@ -5,7 +5,6 @@ import { Table } from 'react-bootstrap'
 import dateFormat from 'dateformat'
 
 const db = InitFirebase()
-console.log(db)
 export class PnlData extends React.Component {
   constructor() {
     super()
@@ -15,7 +14,6 @@ export class PnlData extends React.Component {
   }
 
   componentDidMount() {
-    console.log('/' + dateFormat(new Date(), 'yyyymmdd'))
     const dbRef = ref(db, '/' + dateFormat(new Date(), 'yyyymmdd'))
 
     onValue(dbRef, (snapshot) => {
@@ -25,7 +23,6 @@ export class PnlData extends React.Component {
         let data = childSnapshot.val()
         records.push({ key: keyName, data: data })
       })
-      console.log(records)
       this.setState({ tableData: records })
     })
   }

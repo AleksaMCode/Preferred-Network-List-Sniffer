@@ -19,9 +19,9 @@ export class PnlData extends React.Component {
     onValue(dbRef, (snapshot) => {
       let records = []
       snapshot.forEach((childSnapshot) => {
-        let keyName = childSnapshot.key
+        let key = childSnapshot.key
         let data = childSnapshot.val()
-        records.push({ key: keyName, data: data })
+        records.push({ key: key, data: data })
       })
       this.setState({ tableData: records })
     })
@@ -29,8 +29,8 @@ export class PnlData extends React.Component {
 
   render() {
     return (
-      <Table>
-        <thead>
+      <Table striped bordered hover>
+        <thead style={{ position: 'sticky', top: '0' }}>
           <tr>
             <th>N.</th>
             <th>SSID</th>
@@ -43,7 +43,7 @@ export class PnlData extends React.Component {
               <tr>
                 <td>{index + 1}</td>
                 <td>{row.key}</td>
-                <td>{row.data.timestamp}</td>
+                <td>{row.data}</td>
               </tr>
             )
           })}

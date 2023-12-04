@@ -29,5 +29,6 @@ if __name__ == "__main__":
             logger.exception(f"HTTP Exception: {str(e)}")
         except KeyboardInterrupt as e:
             logger.warning(f"Sniffer stopped forcefully: {str(e)}")
+            sys.exit(130)
         except Exception as e:
             logger.exception(str(e))

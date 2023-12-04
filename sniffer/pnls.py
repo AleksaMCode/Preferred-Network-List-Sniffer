@@ -27,5 +27,7 @@ if __name__ == "__main__":
             upload_to_firebase(timestamp)
         except HTTPException as e:
             logger.exception(f"HTTP Exception: {str(e)}")
+        except KeyboardInterrupt as e:
+            logger.warning(f"Sniffer stopped forcefully: {str(e)}")
         except Exception as e:
             logger.exception(str(e))

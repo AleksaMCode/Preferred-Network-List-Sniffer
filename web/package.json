@@ -17,6 +17,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "format": "npx prettier --write .",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -38,5 +39,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "prettier": "^3.1.0"
   }
 }

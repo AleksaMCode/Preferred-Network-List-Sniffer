@@ -23,6 +23,5 @@ def upload_to_firebase(node):
     if data:
         spinner = yaspin(text="Uploading data to database...")
         spinner.start()
-        for key, value in data.items():
-            db.reference(f"/{node}/{key}").update({"timestamp": data})
+        db.reference(f"/{node}").update(data)
         spinner.stop()

@@ -36,6 +36,7 @@ def capture_traffic(interface):
         stderr=subprocess.STDOUT,
     )
 
+    # Wait `total_time` sec. before terminating.
     while time.time() < start_time + total_time:
         pass
 

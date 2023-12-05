@@ -1,5 +1,6 @@
-# Firebase config file
+# Firebase
 *firebase*.json
+.firebase*
 
 # Log files
 *.log

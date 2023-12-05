@@ -22,7 +22,8 @@
     "format": "npx prettier --write .",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build:deploy": "env-cmd -f .env npm run build && firebase deploy -P pnl-sniffer"
   },
   "eslintConfig": {
     "extends": [
@@ -43,6 +44,7 @@
     ]
   },
   "devDependencies": {
+    "env-cmd": "^10.1.0",
     "prettier": "^3.1.0"
   }
 }

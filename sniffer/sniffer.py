@@ -1,4 +1,4 @@
-from scapy.all import sniff
+from scapy.sendrecv import AsyncSniffer
 from parser import parse_ip_packet
 from yaspin import yaspin
 
@@ -8,4 +8,6 @@ def capture_traffic(interface):
     """
     Capture Wi-Fi traffic and store captured SSIDs.
     """
-    sniff(iface=interface, prn=parse_ip_packet)
+    sniffer = AsyncSniffer(iface=interface, prn=parse_ip_packet)
+    sniffer.start()
+    sniffer.join()

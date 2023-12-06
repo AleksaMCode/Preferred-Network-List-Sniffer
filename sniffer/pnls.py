@@ -1,6 +1,7 @@
 import datetime
 import sys
 from http.client import HTTPException
+from urllib.error import HTTPError
 
 from db_client import upload_to_firebase
 from settings import LOGGING
@@ -26,7 +27,7 @@ if __name__ == "__main__":
             capture_traffic(f"{sys.argv[1]}mon")
             logger.info("Upload PNL data to Firebase.")
             upload_to_firebase(timestamp)
-        except HTTPException as e:
+        except (HTTPException, HTTPError) as e:
             logger.exception(f"HTTP Exception: {str(e)}")
         except KeyboardInterrupt as e:
             logger.warning("Sniffer stopped forcefully.")

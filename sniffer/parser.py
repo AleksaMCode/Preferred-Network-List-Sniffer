@@ -21,4 +21,10 @@ def parse_ip_packet(packet):
     if packet.haslayer(Dot11ProbeReq):
         ssid = packet.info.decode("utf-8")
         if ssid:
-            db.reference(f"/{FIREBASE_NODE}").update({ssid : datetime.utcfromtimestamp(float(packet.time)).strftime(TIMESTAMP_FORMAT)})
+            db.reference(f"/{FIREBASE_NODE}").update(
+                {
+                    ssid: datetime.utcfromtimestamp(float(packet.time)).strftime(
+                        TIMESTAMP_FORMAT
+                    )
+                }
+            )

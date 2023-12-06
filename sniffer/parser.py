@@ -21,7 +21,7 @@ def parse_traffic_file() -> Dict[str, str]:
         # TODO: Optimize by implementing skipping already read packages.
         for package in capture:
             # Filter only Probe Request and ignore Probe Requests with wildcard in the SSID field.
-            if int(package["wlan"].fc, 16) == 16384:
+            if int(package["wlan"].fc, 16) == 0x4000:
                 ssid = package["wlan.mgt"].wlan_tag.split(":")[2].strip().strip('"')
                 if "Wildcard" not in ssid:
                     ssids[ssid] = datetime.utcfromtimestamp(

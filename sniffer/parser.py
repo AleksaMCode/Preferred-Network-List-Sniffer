@@ -7,7 +7,7 @@ from datetime import datetime
 from settings import TRAFFIC_FILE, TIMESTAMP_FORMAT
 
 
-def parse_traffic_file() -> Dict[str, str]:
+def parse_ip_packet(packet):
     """
     Parse *.cap file in order to get SSIDs from device's Preferred Network List.
     :return: Dictionary with SSID-timestamp pairs.

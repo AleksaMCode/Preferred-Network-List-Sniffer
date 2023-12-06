@@ -4,6 +4,8 @@ import subprocess
 import time
 from yaspin import yaspin
 
+from db_client import CONFIG_FILE
+
 TRAFFIC_FILE = "traffic"
 
 
@@ -22,7 +24,7 @@ def capture_traffic(interface):
     """
     Capture Wi-Fi traffic using airodump-ng and store data in a cap file.
     """
-    total_time = 30
+    total_time = CONFIG_FILE["total_sniffing_time"]
     start_time = time.time()
 
     handle = subprocess.Popen(

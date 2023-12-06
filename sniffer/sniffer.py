@@ -2,12 +2,10 @@ import os
 import re
 import subprocess
 import time
-from yaspin import yaspin
 
 from settings import CONFIG_FILE, TRAFFIC_FILE
 
 
-@yaspin(text="Deleting file(s)...")
 def clear_old_traffic():
     """
     Removes old traffic files
@@ -17,7 +15,6 @@ def clear_old_traffic():
             os.remove(file)
 
 
-@yaspin(text="Capturing packages...")
 def capture_traffic(interface):
     """
     Capture Wi-Fi traffic using airodump-ng and store data in a cap file.

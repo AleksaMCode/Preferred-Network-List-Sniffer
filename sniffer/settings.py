@@ -11,3 +11,11 @@ TRAFFIC_FILE = "traffic"
 
 # Name of the file that contains Firebase credentials.
 FIREBASE_CREDENTIALS = "firebase_credentials.json"
+
+# Logging configuration.
+LOGGING = {
+    "filename": "pnls.log",
+    "format": "[{time}: {level}] {message}",
+    "rotation": "30 days",
+    "retention": 5,
+}

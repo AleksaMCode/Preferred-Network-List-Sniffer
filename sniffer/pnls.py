@@ -3,15 +3,15 @@ import sys
 from http.client import HTTPException
 
 from db_client import upload_to_firebase
+from settings import LOGGING
 from sniffer import clear_old_traffic, capture_traffic
 from loguru import logger
 
-
 logger.add(
-    "pnls.log",
-    format="[{time}: {level}] {message}",
-    rotation="30 days",
-    retention=5,
+    LOGGING["filename"],
+    format=LOGGING["format"],
+    rotation=LOGGING["rotation"],
+    retention=LOGGING["rotation"],
 )
 
 if __name__ == "__main__":

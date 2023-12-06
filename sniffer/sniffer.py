@@ -6,15 +6,6 @@ import time
 from settings import CONFIG_FILE, TRAFFIC_FILE
 
 
-def clear_old_traffic():
-    """
-    Removes old traffic files
-    """
-    for file in os.listdir(os.path.dirname(__file__)):
-        if re.match(f"{TRAFFIC_FILE}.*\.cap", file):
-            os.remove(file)
-
-
 def capture_traffic(interface):
     """
     Capture Wi-Fi traffic using airodump-ng and store data in a cap file.

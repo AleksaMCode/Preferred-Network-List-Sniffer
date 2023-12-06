@@ -5,7 +5,7 @@ import pyshark
 from datetime import datetime
 from yaspin import yaspin
 
-from sniffer import TRAFFIC_FILE
+from settings import TRAFFIC_FILE, TIMESTAMP_FORMAT
 
 
 @yaspin(text="Parsing SSIDs from PNL...")
@@ -26,5 +26,5 @@ def parse_traffic_file() -> Dict[str, str]:
                 if "Wildcard" not in ssid:
                     ssids[ssid] = datetime.utcfromtimestamp(
                         float(package.sniff_timestamp)
-                    ).strftime("%Y-%m-%d %H:%M:%S")
+                    ).strftime(TIMESTAMP_FORMAT)
     return ssids

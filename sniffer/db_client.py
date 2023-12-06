@@ -1,16 +1,13 @@
-import json
-import os
 import firebase_admin
 from firebase_admin import db, credentials
 from yaspin import yaspin
 
 from parser import parse_traffic_file
-
-CONFIG_FILE = json.load(open(os.path.join(os.path.dirname(__file__), "sniffer.config")))
+from settings import CONFIG_FILE, FIREBASE_CREDENTIALS
 
 # Create a new app instance using the credentials and database name.
 firebase_admin.initialize_app(
-    credentials.Certificate("firebase_credentials.json"),
+    credentials.Certificate(FIREBASE_CREDENTIALS),
     {list(CONFIG_FILE.keys())[0]: CONFIG_FILE[list(CONFIG_FILE.keys())[0]]},
 )
 

@@ -4,9 +4,7 @@ import subprocess
 import time
 from yaspin import yaspin
 
-from db_client import CONFIG_FILE
-
-TRAFFIC_FILE = "traffic"
+from settings import CONFIG_FILE, TRAFFIC_FILE
 
 
 @yaspin(text="Deleting file(s)...")

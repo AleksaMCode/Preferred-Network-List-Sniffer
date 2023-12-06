@@ -6,6 +6,7 @@ from db_client import upload_to_firebase
 from sniffer import clear_old_traffic, capture_traffic
 from loguru import logger
 
+
 logger.add(
     "pnls.log",
     format="[{time}: {level}] {message}",

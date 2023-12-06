@@ -2,3 +2,4 @@ pyshark==0.6
 firebase_admin==6.2.0
 loguru==0.7.2
 yaspin==3.0.1
+scapy==2.5.0

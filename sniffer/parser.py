@@ -1,28 +1,24 @@
-import os
-from typing import Dict
+import firebase_admin
+from firebase_admin import db, credentials
 
-import pyshark
 from datetime import datetime
+from scapy.layers.dot11 import Dot11ProbeReq
 
-from settings import TRAFFIC_FILE, TIMESTAMP_FORMAT
+from settings import CONFIG_FILE, FIREBASE_CREDENTIALS, FIREBASE_NODE
+from settings import TIMESTAMP_FORMAT
+
+firebase_admin.initialize_app(
+    credentials.Certificate(FIREBASE_CREDENTIALS),
+    {list(CONFIG_FILE.keys())[0]: CONFIG_FILE[list(CONFIG_FILE.keys())[0]]},
+)
 
 
 def parse_ip_packet(packet):
     """
-    Parse *.cap file in order to get SSIDs from device's Preferred Network List.
-    :return: Dictionary with SSID-timestamp pairs.
+    Filters the packet and upload sniffer data (SSID + timestamp) to a Firebase database using `update` function.
     """
-    ssids = {}
-    # airodump-ng names output with an automatic numbers, where the first file contains '-01'.
-    filename = os.path.join(os.path.dirname(__file__), f"{TRAFFIC_FILE}-01.cap")
-    with pyshark.FileCapture(filename) as capture:
-        # TODO: Optimize by implementing skipping already read packages.
-        for package in capture:
-            # Filter only Probe Request and ignore Probe Requests with wildcard in the SSID field.
-            if int(package["wlan"].fc, 16) == 0x4000:
-                ssid = package["wlan.mgt"].wlan_tag.split(":")[2].strip().strip('"')
-                if "Wildcard" not in ssid:
-                    ssids[ssid] = datetime.utcfromtimestamp(
-                        float(package.sniff_timestamp)
-                    ).strftime(TIMESTAMP_FORMAT)
-    return ssids
+    # Filter only Probe Request and ignore Probe Requests with wildcard in the SSID field.
+    if packet.haslayer(Dot11ProbeReq):
+        ssid = packet.info.decode("utf-8")
+        if ssid:
+            db.reference(f"/{FIREBASE_NODE}").update({ssid : datetime.utcfromtimestamp(float(packet.time)).strftime(TIMESTAMP_FORMAT)})

@@ -15,7 +15,7 @@ firebase_admin.initialize_app(
 
 def parse_ip_packet(packet):
     """
-    Filters the packet and upload sniffer data (SSID + timestamp) to a Firebase database using `update` function.
+    Filters the packet and uploads sniffed data (SSID + timestamp) to a Firebase database using `update` function.
     """
     # Filter only Probe Request and ignore Probe Requests with wildcard in the SSID field.
     if packet.haslayer(Dot11ProbeReq):

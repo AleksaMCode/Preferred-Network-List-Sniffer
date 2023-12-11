@@ -1,6 +1,7 @@
 <img width="150" align="right" src="./resources/rpis_logo.png"></img>
 # Preffered Network List Sniffer
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+![](https://img.shields.io/github/v/release/AleksaMCode/Preferred-Network-List-Sniffer)
 
 > :warning: **Disclaimer**: All content in this project is intended for security research purpose only.
 

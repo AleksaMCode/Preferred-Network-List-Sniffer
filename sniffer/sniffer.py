@@ -1,8 +1,9 @@
 from scapy.sendrecv import AsyncSniffer
 from parser import parse_ip_packet_wrapper
+from websocket.websocket_manager import WebSocketManager
 
 
-def capture_traffic(interface, socket_manager):
+def capture_traffic(interface: str, socket_manager: WebSocketManager):
     """
     Capture Wi-Fi traffic and store captured SSIDs.
     """

@@ -7,7 +7,16 @@ DEFAULT_INTERFACE = "wlan0"
 SERVER = {
     "host": "127.0.0.1",
     "port": 3_001,
+    "redis_port": 3_002,
+    "url": "ws",
+    "endpoints": {
+        "publisher": "pub",
+        "subscriber": "sub",
+    },
 }
+
+# Number of maximum reconnect attempts to the server before terminating sniffer.
+MAX_RECONNECT = 5
 
 # Format of the timestamp that will be stored alongside SSID.
 TIMESTAMP_FORMAT = "%Y-%m-%d %H:%M:%S"

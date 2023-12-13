@@ -10,7 +10,7 @@ SERVER = {
     "localhost": "0.0.0.0",
     "host": "127.0.0.1",
     "port": 3_001,
-    "redis_port": 3_002,
+    "redis_port": 6_379,
     "url": "ws",
     "endpoints": {
         "publisher": "pub",

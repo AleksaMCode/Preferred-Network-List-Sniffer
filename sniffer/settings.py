@@ -1,5 +1,8 @@
 import datetime
 
+# Name of the interface that will be used for monitoring mode.
+DEFAULT_INTERFACE = "wlan0"
+
 # Format of the timestamp that will be stored alongside SSID.
 TIMESTAMP_FORMAT = "%Y-%m-%d %H:%M:%S"
 

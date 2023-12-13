@@ -33,6 +33,10 @@ export class PnlData extends React.Component {
     ws.onerror = (e) => {
       toast.error("Can't establish connection to the server!")
     }
+
+    ws.onclose = () => {
+      toast.warn('Connection to the server has been terminated!')
+    }
   }
 
   render() {

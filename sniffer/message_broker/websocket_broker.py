@@ -43,8 +43,6 @@ class WebSocketBroker:
         while True:
             data = await ps_subscriber.get_message(ignore_subscribe_messages=True)
             if data:
-                # TODO: Implement this in a better way.
-                sockets = self.channels[list(self.channels.keys())[0]]
-                for socket in sockets:
+                for socket in self.sockets:
                     data = data.decode('utf-8')
                     await socket.send_text(data)

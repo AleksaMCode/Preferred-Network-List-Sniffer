@@ -5,6 +5,8 @@ DEFAULT_INTERFACE = "wlan0"
 
 # Server configuration.
 SERVER = {
+    # localhost address is needed when using `uvicorn` to start the server
+    "localhost": "0.0.0.0",
     "host": "127.0.0.1",
     "port": 3_001,
     "redis_port": 3_002,

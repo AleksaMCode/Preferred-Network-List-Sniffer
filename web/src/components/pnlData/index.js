@@ -26,11 +26,11 @@ export class PnlData extends React.Component {
       this.setState({ tableData: records })
     }
 
-    ws.onopen = (e) => {
+    ws.onopen = () => {
       toast.success('Connection to the server establish successfully!')
     }
 
-    ws.onerror = (e) => {
+    ws.onerror = () => {
       toast.error("Can't establish connection to the server!")
     }
 

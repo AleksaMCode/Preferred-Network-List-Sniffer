@@ -6,7 +6,7 @@ DEFAULT_INTERFACE = "wlan0"
 # Server configuration.
 SERVER = {
     "host": "127.0.0.1",
-    "port": 3_001
+    "port": 3_001,
 }
 
 # Format of the timestamp that will be stored alongside SSID.

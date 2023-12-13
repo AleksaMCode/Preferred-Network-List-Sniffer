@@ -1,11 +1,12 @@
-import InitFirebase from '../databaseConfig/index'
 import React from 'react'
-import { ref, onValue } from 'firebase/database'
 import { Table } from 'react-bootstrap'
 import dateFormat from 'dateformat'
 import { motion } from 'framer-motion'
 
-const db = InitFirebase()
+const channel = dateFormat(new Date(), 'yyyymmdd')
+const socket = '127.0.0.1:3001'
+const ws = new WebSocket(`ws://${socket}/ws/sub/${channel}`)
+
 export class PnlData extends React.Component {
   constructor() {
     super()
@@ -15,17 +16,12 @@ export class PnlData extends React.Component {
   }
 
   componentDidMount() {
-    const dbRef = ref(db, '/' + dateFormat(new Date(), 'yyyymmdd'))
-
-    onValue(dbRef, (snapshot) => {
+    ws.onmessage = (e) => {
       let records = []
-      snapshot.forEach((childSnapshot) => {
-        let key = childSnapshot.key
-        let data = childSnapshot.val()
-        records.push({ key: key, data: data })
-      })
+      const data = JSON.parse(e.data)
+      records.push({ key: data.ssid, data: data.timestamp })
       this.setState({ tableData: records })
-    })
+    }
   }
 
   render() {

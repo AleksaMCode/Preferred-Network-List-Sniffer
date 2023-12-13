@@ -1,5 +1,3 @@
-import json
-import os
 import datetime
 
 # Format of the timestamp that will be stored alongside SSID.

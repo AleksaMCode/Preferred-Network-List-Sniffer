@@ -16,9 +16,13 @@ def parse_ip_packet_wrapper(socket_manager: WebSocket):
         if packet.haslayer(Dot11ProbeReq):
             ssid = packet.info.decode("utf-8")
             if ssid:
-                socket_manager.send(json.dumps({
-                    "ssid": ssid,
-                    "timestamp": datetime.utcfromtimestamp(float(packet.time)).strftime(
-                        TIMESTAMP_FORMAT
+                socket_manager.send(
+                    json.dumps(
+                        {
+                            "ssid": ssid,
+                            "timestamp": datetime.utcfromtimestamp(
+                                float(packet.time)
+                            ).strftime(TIMESTAMP_FORMAT),
+                        }
                     )
-                }))
+                )

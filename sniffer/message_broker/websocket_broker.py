@@ -6,7 +6,6 @@ from message_broker.ps_broker import PubSubBroker
 
 
 class WebSocketBroker:
-
     def __init__(self):
         self.channel_id = None
         self.sockets: list = []
@@ -44,5 +43,5 @@ class WebSocketBroker:
             data = await ps_subscriber.get_message(ignore_subscribe_messages=True)
             if data:
                 for socket in self.sockets:
-                    data = data.decode('utf-8')
+                    data = data.decode("utf-8")
                     await socket.send_text(data)

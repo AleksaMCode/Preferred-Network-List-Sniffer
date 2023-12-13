@@ -30,7 +30,9 @@ def capture_traffic(interface: str):
     """
     Captures Wi-Fi traffic and store captured SSIDs.
     """
-    sniffer = AsyncSniffer(iface=interface, prn=parse_ip_packet_wrapper(socket_manager), store=0)
+    sniffer = AsyncSniffer(
+        iface=interface, prn=parse_ip_packet_wrapper(socket_manager), store=0
+    )
     sniffer.start()
     sniffer.join()
 
@@ -46,11 +48,15 @@ def connection():
     while True:
         try:
             # Create a socket connection.
-            socket_manager = create_connection(f"ws://{SERVER['host']}:{SERVER['port']}/{CHANNEL_ID}")
+            socket_manager = create_connection(
+                f"ws://{SERVER['host']}:{SERVER['port']}/{CHANNEL_ID}"
+            )
             logger.info("Web socket connection opened.")
             return True
         except Exception as e:
-            logger.exception(f"There was an error during creation of socket connection: {str(e)}")
+            logger.exception(
+                f"There was an error during creation of socket connection: {str(e)}"
+            )
             attempt_count += 1
             if attempt_count == MAX_RECONNECT:
                 logger.error("Failed to connect to socket after 5 attempts.")

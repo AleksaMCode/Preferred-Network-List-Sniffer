@@ -4,7 +4,6 @@ from settings import SERVER
 
 
 class PubSubBroker:
-
     def __init__(self, host=SERVER["host"], port=SERVER["redis_port"]):
         self.redis_connection = None
         self.redis_host = host
@@ -16,9 +15,9 @@ class PubSubBroker:
         Establishes a connection to Redis.
         :return: Redis connection object.
         """
-        return aioredis.Redis(host=self.redis_host,
-                              port=self.redis_port,
-                              auto_close_connection_pool=False)
+        return aioredis.Redis(
+            host=self.redis_host, port=self.redis_port, auto_close_connection_pool=False
+        )
 
     async def connect(self) -> None:
         """

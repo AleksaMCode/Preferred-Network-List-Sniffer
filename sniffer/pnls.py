@@ -58,4 +58,9 @@ async def subscriber(websocket: WebSocket, channel_id: str):
 
 
 if __name__ == "__main__":
-    uvicorn.run(f"{Path(__file__).stem}:app", host=SERVER["host"], port=SERVER["port"], reload=True)
+    uvicorn.run(
+        f"{Path(__file__).stem}:app",
+        host=SERVER["host"],
+        port=SERVER["port"],
+        reload=True,
+    )

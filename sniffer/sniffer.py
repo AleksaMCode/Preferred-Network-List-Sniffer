@@ -39,6 +39,7 @@ def connection():
     """
     Attempts to establish socket connection with the server.
     """
+    # TODO: Implement a real Backoff Protocol.
     attempt_count = 0
     global socket_manager
     # Try to create connection MAX_RECONNECT times before terminating.

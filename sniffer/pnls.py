@@ -45,8 +45,8 @@ async def subscriber(websocket: WebSocket, channel_id: str):
     if channel_id != CHANNEL_ID:
         raise WebSocketException(code=status.WS_1014_BAD_GATEWAY)
 
-    await socket_manager.add_user_to_channel(channel_id, websocket)
     try:
+        await socket_manager.add_user_to_channel(channel_id, websocket)
         while True:
             data = await websocket.receive_text()
             if data:

@@ -9,7 +9,6 @@ CHANNEL_ID = datetime.datetime.now().strftime("%Y%m%d")
 
 # Logging configuration.
 LOGGING = {
-    "filename": "pnls.log",
     "format": "[{time}: {level}] {message}",
     "rotation": "30 days",
     "retention": 5,

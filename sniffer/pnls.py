@@ -1,6 +1,7 @@
 from pathlib import Path
 
 import uvicorn
+import json
 from starlette import status
 
 from settings import LOGGING, SERVER, CHANNEL_ID
@@ -34,7 +35,7 @@ async def publisher(websocket: WebSocket, channel_id: str):
         while True:
             data = await websocket.receive_text()
             if data:
-                _ = await socket_manager.broadcast_to_channel(channel_id, data)
+                _ = await socket_manager.broadcast_to_channel(channel_id, json.dumps(data))
     except WebSocketDisconnect:
         logger.warning(f"Web client disconnected from the channel {channel_id}.")
     except Exception as e:
@@ -50,9 +51,9 @@ async def subscriber(websocket: WebSocket, channel_id: str):
     try:
         await socket_manager.add_user_to_channel(channel_id, websocket)
         while True:
-            data = await websocket.receive_text()
-            if data:
-                websocket.send()
+            data = await websocket.receive_json()
+            #if data:
+            #    websocket.send()
     except WebSocketDisconnect:
         logger.warning(f"Web client disconnected from the channel {channel_id}.")
     except Exception as e:

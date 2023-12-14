@@ -1,6 +1,7 @@
-## Contributing
+Contributing Guidelines
+===
 
-Hello! 👋 Thank you for considering contributing to this project.
+Hello! 👋 Thank you for considering contributing to this project. [PNLS](https://github.com/AleksaMCode/Preferred-Network-List-Sniffer) is an open source project and there are many ways to contribute, from documentation improvements, submitting feature requests, pull requests with changes and improvements or bug reports. Don't use [Issues](https://github.com/AleksaMCode/Preferred-Network-List-Sniffer/issues) for support questions, for those you can start a [discussion](https://github.com/AleksaMCode/Preferred-Network-List-Sniffer/discussions).
 
 Contributions to this project are [released](https://docs.github.com/en/github/site-policy/github-terms-of-service#6-contributions-under-repository-license) to the public under the project's open source license.
 
@@ -15,6 +16,7 @@ Contributions to this project are [released](https://docs.github.com/en/github/s
 Here are a few things you can do that will increase the likelihood of your pull request being accepted:
 
 - Follow the [style guide](https://docs.github.com/en/contributing/style-guide-and-content-model/style-guide).
+- Follow the used Coding Guidelines.
 - Keep your change as focused as possible. If there are multiple changes you would like to make that are not dependent upon each other, consider submitting them as separate pull requests.
 - Write a [good commit message](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html).
 - Also, take a look at [How to Contribute to Open Source](https://opensource.guide/how-to-contribute/).

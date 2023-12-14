@@ -3,7 +3,7 @@ from redis import asyncio as aioredis
 from settings import SERVER
 
 
-class PubSubBroker:
+class MessageBroker:
     def __init__(self, host=SERVER["host"], port=SERVER["redis_port"]):
         self.redis_connection = None
         self.redis_host = host

@@ -3,14 +3,14 @@ import json
 from fastapi import WebSocket
 from redis import asyncio as aioredis
 
-from message_broker.ps_broker import PubSubBroker
+from message_broker.ps_broker import MessageBroker
 
 
 class WebSocketBroker:
     def __init__(self):
         self.channel_id = None
         self.sockets: list = []
-        self.pubsub_client = PubSubBroker()
+        self.pubsub_client = MessageBroker()
 
     async def add_user_to_channel(self, channel_id: str, websocket: WebSocket) -> None:
         """

@@ -1,4 +1,5 @@
 import asyncio
+import json
 from fastapi import WebSocket
 from redis import asyncio as aioredis
 
@@ -40,8 +41,8 @@ class WebSocketBroker:
         :param ps_subscriber: PubSub object for the subscribed channel.
         """
         while True:
-            data = await ps_subscriber.get_message(ignore_subscribe_messages=True)
-            if data:
+            message = await ps_subscriber.get_message(ignore_subscribe_messages=True)
+            if message:
                 for socket in self.sockets:
-                    data = data.decode("utf-8")
-                    await socket.send_text(data)
+                    data = message["data"].decode("utf-8")
+                    await socket.send_json(json.loads(data))

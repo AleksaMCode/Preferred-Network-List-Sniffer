@@ -36,7 +36,9 @@ async def publish(websocket: WebSocket, channel_id: str):
         while True:
             data = await websocket.receive_text()
             if data:
-                _ = await socket_manager.broadcast_to_channel(channel_id, json.dumps(data))
+                _ = await socket_manager.broadcast_to_channel(
+                    channel_id, json.dumps(data)
+                )
     except WebSocketDisconnect:
         logger.warning(f"Web client disconnected from the channel {channel_id}.")
     except Exception as e:
@@ -54,7 +56,7 @@ async def subscribe(websocket: WebSocket, channel_id: str):
         await socket_manager.add_user_to_channel(channel_id, websocket)
         while True:
             data = await websocket.receive_json()
-            #if data:
+            # if data:
             #    websocket.send()
     except WebSocketDisconnect:
         logger.warning(f"Web client disconnected from the channel {channel_id}.")

@@ -22,7 +22,7 @@ export class PnlData extends React.Component {
       let records = []
       const data = JSON.parse(JSON.parse(e.data))
       records.push({ key: data.ssid, data: data.timestamp })
-      this.setState({ tableData: records })
+      this.setState({ tableData: this.state.tableData.concat(records) })
     }
 
     ws.onopen = () => {

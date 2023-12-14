@@ -20,7 +20,7 @@ export class PnlData extends React.Component {
   componentDidMount() {
     ws.onmessage = (e) => {
       let records = []
-      const data = JSON.parse(e.data)
+      const data = JSON.parse(JSON.parse(e.data))
       records.push({ key: data.ssid, data: data.timestamp })
       this.setState({ tableData: records })
     }

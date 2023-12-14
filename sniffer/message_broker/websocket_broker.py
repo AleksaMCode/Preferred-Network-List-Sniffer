@@ -3,7 +3,7 @@ import json
 from fastapi import WebSocket
 from redis import asyncio as aioredis
 
-from message_broker.ps_broker import MessageBroker
+from message_broker.message_broker import MessageBroker
 
 
 class WebSocketBroker:

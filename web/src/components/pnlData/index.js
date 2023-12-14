@@ -19,11 +19,12 @@ export class PnlData extends React.Component {
 
   componentDidMount() {
     ws.onmessage = (e) => {
-      // TODO: Improve this.
-      let records = []
       const data = JSON.parse(JSON.parse(e.data))
-      records.push({ key: data.ssid, data: data.timestamp })
-      this.setState({ tableData: this.state.tableData.concat(records) })
+      let newData = [
+        ...this.state.tableData,
+        { key: data.ssid, data: data.timestamp },
+      ]
+      this.setState({ tableData: newData })
     }
 
     ws.onopen = () => {

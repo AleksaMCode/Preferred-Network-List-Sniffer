@@ -27,7 +27,7 @@ app = FastAPI()
 async def publisher(websocket: WebSocket, channel_id: str):
     # Raise Exception if the channel id is incorrect.
     if channel_id != CHANNEL_ID:
-        raise WebSocketException(code=status.WS_1014_BAD_GATEWAY)
+        raise WebSocketException(code=status.WS_1003_UNSUPPORTED_DATA)
 
     await websocket.accept()
 
@@ -46,7 +46,7 @@ async def publisher(websocket: WebSocket, channel_id: str):
 async def subscriber(websocket: WebSocket, channel_id: str):
     # Raise Exception if the channel id is incorrect.
     if channel_id != CHANNEL_ID:
-        raise WebSocketException(code=status.WS_1014_BAD_GATEWAY)
+        raise WebSocketException(code=status.WS_1003_UNSUPPORTED_DATA)
 
     try:
         await socket_manager.add_user_to_channel(channel_id, websocket)

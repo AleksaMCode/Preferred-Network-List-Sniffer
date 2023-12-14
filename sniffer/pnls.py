@@ -28,6 +28,8 @@ async def publisher(websocket: WebSocket, channel_id: str):
     if channel_id != CHANNEL_ID:
         raise WebSocketException(code=status.WS_1014_BAD_GATEWAY)
 
+    await websocket.accept()
+
     try:
         while True:
             data = await websocket.receive_text()

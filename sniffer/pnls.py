@@ -26,6 +26,7 @@ app = FastAPI()
 @app.websocket("/ws/pub/{channel_id}")
 async def publisher(websocket: WebSocket, channel_id: str):
     # Raise Exception if the channel id is incorrect.
+    # More details about status code: https://www.rfc-editor.org/rfc/rfc6455.html#section-7.4.1
     if channel_id != CHANNEL_ID:
         raise WebSocketException(code=status.WS_1003_UNSUPPORTED_DATA)
 
@@ -45,6 +46,7 @@ async def publisher(websocket: WebSocket, channel_id: str):
 @app.websocket("/ws/sub/{channel_id}")
 async def subscriber(websocket: WebSocket, channel_id: str):
     # Raise Exception if the channel id is incorrect.
+    # More details about status code: https://www.rfc-editor.org/rfc/rfc6455.html#section-7.4.1
     if channel_id != CHANNEL_ID:
         raise WebSocketException(code=status.WS_1003_UNSUPPORTED_DATA)
 

@@ -37,6 +37,7 @@ def capture_traffic(interface: str):
     sniffer.join()
 
 
+@yaspin(text="Connecting to the Web Server...")
 def connection():
     """
     Attempts to establish socket connection with the server.

@@ -7,15 +7,9 @@ from starlette import status
 from settings import SERVER, CHANNEL_ID
 from logger import create_logger, log_info, log_error, log_warning, log_exception
 
-from fastapi import (
-    FastAPI,
-    WebSocket,
-    WebSocketDisconnect,
-    WebSocketException,
-)
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect, WebSocketException
 
 from message_broker.websocket_broker import WebSocketBroker
-
 
 
 socket_manager = WebSocketBroker()

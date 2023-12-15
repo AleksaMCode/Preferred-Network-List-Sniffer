@@ -19,7 +19,7 @@ logger.add(
     f"{Path(__file__).stem}.log",
     format=LOGGING["format"],
     rotation=LOGGING["rotation"],
-    retention=LOGGING["rotation"],
+    retention=LOGGING["retention"],
 )
 
 socket_manager = None

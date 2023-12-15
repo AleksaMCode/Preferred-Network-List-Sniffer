@@ -6,7 +6,7 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 const channel = dateFormat(new Date(), 'yyyymmdd')
-const socket = '192.168.100.34:3001'
+const socket = '127.0.0.1:3001'
 const ws = new WebSocket(`ws://${socket}/ws/sub/${channel}`)
 
 export class PnlData extends React.Component {

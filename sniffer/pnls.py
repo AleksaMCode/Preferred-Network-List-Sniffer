@@ -1,5 +1,5 @@
 from pathlib import Path
-
+import asyncio
 import uvicorn
 import json
 from starlette import status
@@ -7,7 +7,12 @@ from starlette import status
 from settings import LOGGING, SERVER, CHANNEL_ID
 from loguru import logger
 
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect, WebSocketException, BackgroundTasks
+from fastapi import (
+    FastAPI,
+    WebSocket,
+    WebSocketDisconnect,
+    WebSocketException,
+)
 
 from message_broker.websocket_broker import WebSocketBroker
 
@@ -17,30 +22,37 @@ logger.add(
     format=LOGGING["format"],
     rotation=LOGGING["rotation"],
     retention=LOGGING["rotation"],
+    enqueue=True,
 )
 
 socket_manager = WebSocketBroker()
 app = FastAPI()
 
 
-def log_info(message: str):
+async def log_info(message: str):
     logger.info(message)
 
 
-def log_error(message: str):
+async def log_error(message: str):
     logger.error(message)
 
 
 @app.websocket("/ws/pub/{channel_id}")
-async def publish(websocket: WebSocket, channel_id: str, background_tasks: BackgroundTasks):
+async def publish(websocket: WebSocket, channel_id: str):
     # Raise Exception if the channel id is incorrect.
     # More details about status code: https://www.rfc-editor.org/rfc/rfc6455.html#section-7.4.1
     if channel_id != CHANNEL_ID:
-        background_tasks.add_task(log_error, message=f"Publisher used channel id {channel_id} instead of {CHANNEL_ID}")
+        asyncio.create_task(
+            log_error(
+                f"Publisher ({websocket.client.host}:{websocket.client.port}) used channel id {channel_id} instead of {CHANNEL_ID}"
+            )
+        )
         raise WebSocketException(code=status.WS_1003_UNSUPPORTED_DATA)
 
     await websocket.accept()
-    background_tasks.add_task(log_info, message="Publisher established socket connection successfully.")
+    asyncio.create_task(
+        log_info(f"Publisher ({websocket.client.host}:{websocket.client.port}) established socket connection successfully.")
+    )
 
     try:
         while True:
@@ -56,16 +68,20 @@ async def publish(websocket: WebSocket, channel_id: str, background_tasks: Backg
 
 
 @app.websocket("/ws/sub/{channel_id}")
-async def subscribe(websocket: WebSocket, channel_id: str, background_tasks: BackgroundTasks):
+async def subscribe(websocket: WebSocket, channel_id: str):
     # Raise Exception if the channel id is incorrect.
     # More details about status code: https://www.rfc-editor.org/rfc/rfc6455.html#section-7.4.1
     if channel_id != CHANNEL_ID:
-        background_tasks.add_task(log_error, message=f"Subscriber used channel id {channel_id} instead of {CHANNEL_ID}")
+        asyncio.create_task(
+            log_error(f"Subscriber ({websocket.client.host}:{websocket.client.port}) used channel id {channel_id} instead of {CHANNEL_ID}")
+        )
         raise WebSocketException(code=status.WS_1003_UNSUPPORTED_DATA)
 
     try:
         await socket_manager.add_user_to_channel(channel_id, websocket)
-        background_tasks.add_task(log_info, message="Subscriber subscribed successfully to the channel.")
+        asyncio.create_task(
+            log_info(f"Client ({websocket.client.host}:{websocket.client.port}) subscribed successfully to the channel.")
+        )
         while True:
             data = await websocket.receive_json()
             # if data:

@@ -1,4 +1,5 @@
 import sys
+import threading
 from http.client import HTTPException
 from parser import parse_ip_packet_wrapper
 from pathlib import Path
@@ -21,6 +22,7 @@ logger.add(
 )
 
 socket_manager = None
+stopper = threading.Event()
 
 
 @yaspin(text="Capturing Probe requests...")
@@ -29,7 +31,7 @@ def capture_traffic(interface: str):
     Captures Wi-Fi traffic and store captured SSIDs.
     """
     sniffer = AsyncSniffer(
-        iface=interface, prn=parse_ip_packet_wrapper(socket_manager), store=0
+        iface=interface, args=(stopper,), prn=parse_ip_packet_wrapper(socket_manager,stopper), store=0
     )
     sniffer.start()
     sniffer.join()

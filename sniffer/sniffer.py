@@ -31,7 +31,7 @@ def capture_traffic(interface: str):
     Captures Wi-Fi traffic and store captured SSIDs.
     """
     sniffer = AsyncSniffer(
-        iface=interface, args=(stopper,), prn=parse_ip_packet_wrapper(socket_manager,stopper), store=0
+        iface=interface, args=(stopper,), prn=parse_ip_packet_wrapper(socket_manager, stopper), store=0
     )
     sniffer.start()
     sniffer.join()
@@ -71,18 +71,17 @@ if __name__ == "__main__":
         # 126 - Command invoked cannot execute
         sys.exit(126)
 
-    while True:
-        try:
-            logger.info("Capture packages from Wi-Fi traffic.")
-            capture_traffic(f"{DEFAULT_INTERFACE}mon")
-        except (HTTPException, HTTPError) as e:
-            logger.exception(f"HTTP Exception: {str(e)}")
-        except KeyboardInterrupt as e:
-            logger.warning("Sniffer stopped forcefully.")
-            # 130 - Script terminated by Control-C
-            sys.exit(130)
-        except Exception as e:
-            logger.exception(str(e))
-        finally:
-            if socket_manager is not None:
-                socket_manager.close()
+    try:
+        logger.info("Capture packages from Wi-Fi traffic.")
+        capture_traffic(f"{DEFAULT_INTERFACE}mon")
+    except (HTTPException, HTTPError) as e:
+        logger.exception(f"HTTP Exception: {str(e)}")
+    except KeyboardInterrupt as e:
+        logger.warning("Sniffer stopped forcefully.")
+        # 130 - Script terminated by Control-C
+        sys.exit(130)
+    except Exception as e:
+        logger.exception(str(e))
+
+    if socket_manager is not None:
+        socket_manager.close()

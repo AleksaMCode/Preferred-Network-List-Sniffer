@@ -4,7 +4,7 @@ from settings import SERVER
 
 
 class MessageBroker:
-    def __init__(self, host=SERVER["host"], port=SERVER["redis_port"]):
+    def __init__(self, host=SERVER["redis_host"], port=SERVER["redis_port"]):
         self.redis_connection = None
         self.redis_host = host
         self.redis_port = port

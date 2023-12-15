@@ -51,7 +51,9 @@ async def publish(websocket: WebSocket, channel_id: str):
 
     await websocket.accept()
     asyncio.create_task(
-        log_info(f"Publisher ({websocket.client.host}:{websocket.client.port}) established socket connection successfully.")
+        log_info(
+            f"Publisher ({websocket.client.host}:{websocket.client.port}) established socket connection successfully."
+        )
     )
 
     try:
@@ -73,14 +75,18 @@ async def subscribe(websocket: WebSocket, channel_id: str):
     # More details about status code: https://www.rfc-editor.org/rfc/rfc6455.html#section-7.4.1
     if channel_id != CHANNEL_ID:
         asyncio.create_task(
-            log_error(f"Subscriber ({websocket.client.host}:{websocket.client.port}) used channel id {channel_id} instead of {CHANNEL_ID}")
+            log_error(
+                f"Subscriber ({websocket.client.host}:{websocket.client.port}) used channel id {channel_id} instead of {CHANNEL_ID}"
+            )
         )
         raise WebSocketException(code=status.WS_1003_UNSUPPORTED_DATA)
 
     try:
         await socket_manager.add_user_to_channel(channel_id, websocket)
         asyncio.create_task(
-            log_info(f"Client ({websocket.client.host}:{websocket.client.port}) subscribed successfully to the channel.")
+            log_info(
+                f"Client ({websocket.client.host}:{websocket.client.port}) subscribed successfully to the channel."
+            )
         )
         while True:
             data = await websocket.receive_json()

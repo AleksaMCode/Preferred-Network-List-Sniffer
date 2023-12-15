@@ -6,3 +6,4 @@ redis==5.0.1
 websocket-client==1.7.0
 yaspin==3.0.1
 starlette
+websockets==12.0

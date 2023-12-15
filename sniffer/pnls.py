@@ -90,8 +90,6 @@ async def subscribe(websocket: WebSocket, channel_id: str):
         )
         while True:
             data = await websocket.receive_json()
-            # if data:
-            #    websocket.send()
     except WebSocketDisconnect:
         logger.warning(f"Web client disconnected from the channel {channel_id}.")
     except Exception as e:

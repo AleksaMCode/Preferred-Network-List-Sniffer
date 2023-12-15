@@ -4,8 +4,8 @@ import uvicorn
 import json
 from starlette import status
 
-from settings import LOGGING, SERVER, CHANNEL_ID
-from loguru import logger
+from settings import SERVER, CHANNEL_ID
+from logger import create_logger, log_info, log_error
 
 from fastapi import (
     FastAPI,
@@ -16,25 +16,11 @@ from fastapi import (
 
 from message_broker.websocket_broker import WebSocketBroker
 
-# Create logger.
-logger.add(
-    f"{Path(__file__).stem}.log",
-    format=LOGGING["format"],
-    rotation=LOGGING["rotation"],
-    retention=LOGGING["retention"],
-    enqueue=True,
-)
+
 
 socket_manager = WebSocketBroker()
+create_logger(f"{Path(__file__).stem}.log")
 app = FastAPI()
-
-
-async def log_info(message: str):
-    logger.info(message)
-
-
-async def log_error(message: str):
-    logger.error(message)
 
 
 @app.websocket("/ws/pub/{channel_id}")

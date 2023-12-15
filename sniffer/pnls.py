@@ -5,7 +5,7 @@ import json
 from starlette import status
 
 from settings import SERVER, CHANNEL_ID
-from logger import create_logger, log_info, log_error
+from logger import create_logger, log_info, log_error, log_warning, log_exception
 
 from fastapi import (
     FastAPI,
@@ -50,9 +50,9 @@ async def publish(websocket: WebSocket, channel_id: str):
                     channel_id, json.dumps(data)
                 )
     except WebSocketDisconnect:
-        logger.warning(f"Web client disconnected from the channel {channel_id}.")
+        await log_warning(f"Web client disconnected from the channel {channel_id}.")
     except Exception as e:
-        logger.exception(f"Exception occurred: {str(e)}.")
+        await log_exception(f"Exception occurred: {str(e)}.")
 
 
 @app.websocket("/ws/sub/{channel_id}")
@@ -77,9 +77,9 @@ async def subscribe(websocket: WebSocket, channel_id: str):
         while True:
             _ = await websocket.receive_json()
     except WebSocketDisconnect:
-        logger.warning(f"Web client disconnected from the channel {channel_id}.")
+        await log_warning(f"Web client disconnected from the channel {channel_id}.")
     except Exception as e:
-        logger.exception(f"Exception occurred: {str(e)}.")
+        await log_exception(f"Exception occurred: {str(e)}.")
 
 
 if __name__ == "__main__":

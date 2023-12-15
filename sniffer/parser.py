@@ -26,3 +26,5 @@ def parse_ip_packet_wrapper(socket_manager: WebSocket):
                         }
                     )
                 )
+
+    return parse_ip_packet

@@ -48,7 +48,7 @@ def connection():
         try:
             # Create a socket connection.
             socket_manager = create_connection(
-                f"ws://{SERVER['host']}:{SERVER['port']}/{CHANNEL_ID}"
+                f"ws://{SERVER['host']}:{SERVER['port']}/ws/pub/{CHANNEL_ID}"
             )
             logger.info("Web socket connection opened.")
             return True

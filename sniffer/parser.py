@@ -1,10 +1,10 @@
 import json
-
 from datetime import datetime
+
 from scapy.layers.dot11 import Dot11ProbeReq
+from websocket import WebSocket
 
 from settings import TIMESTAMP_FORMAT
-from websocket import WebSocket
 
 
 def parse_ip_packet_wrapper(socket_manager: WebSocket):

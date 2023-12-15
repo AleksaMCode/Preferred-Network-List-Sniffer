@@ -1,11 +1,11 @@
-import uvicorn
-
-from settings import SERVER
-from services import pub_sub
-
 from pathlib import Path
-from logger import create_logger
+
+import uvicorn
 from fastapi import FastAPI
+
+from logger import create_logger
+from services import pub_sub
+from settings import SERVER
 
 create_logger(f"{Path(__file__).stem}.log")
 app = FastAPI()

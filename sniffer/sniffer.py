@@ -1,18 +1,16 @@
 import sys
-
+from http.client import HTTPException
+from parser import parse_ip_packet_wrapper
 from pathlib import Path
 from time import sleep
+from urllib.error import HTTPError
 
 from loguru import logger
 from scapy.sendrecv import AsyncSniffer
-
 from websocket import create_connection
 from yaspin import yaspin
 
-from parser import parse_ip_packet_wrapper
-from settings import LOGGING, DEFAULT_INTERFACE, SERVER, CHANNEL_ID, MAX_RECONNECT
-from http.client import HTTPException
-from urllib.error import HTTPError
+from settings import CHANNEL_ID, DEFAULT_INTERFACE, LOGGING, MAX_RECONNECT, SERVER
 
 # Create logger.
 logger.add(

@@ -1,16 +1,14 @@
 import asyncio
 import json
 
-from logger import log_info, log_error, log_warning, log_exception
-from message_broker.websocket_broker import WebSocketBroker
-
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect, WebSocketException
-from settings import CHANNEL_ID
 from starlette import status
 
-router = APIRouter(
-    prefix="/ws"
-)
+from logger import log_error, log_exception, log_info, log_warning
+from message_broker.websocket_broker import WebSocketBroker
+from settings import CHANNEL_ID
+
+router = APIRouter(prefix="/ws")
 socket_manager = WebSocketBroker()
 
 

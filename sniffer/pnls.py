@@ -10,10 +10,14 @@ from settings import SERVER
 
 origins = ["*"]
 
+# Create a logger.
 create_logger(f"{Path(__file__).stem}.log")
 app = FastAPI()
 
+# Add router.
 app.include_router(pub_sub.router)
+
+# Add CORS middleware.
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,

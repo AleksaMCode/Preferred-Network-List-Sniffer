@@ -3,6 +3,7 @@ from pathlib import Path
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+
 from logger import create_logger
 from services import pub_sub
 from settings import SERVER

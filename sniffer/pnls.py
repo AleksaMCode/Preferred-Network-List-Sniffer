@@ -44,7 +44,9 @@ async def publish(websocket: WebSocket, channel_id: str):
                     channel_id, json.dumps(data)
                 )
     except WebSocketDisconnect:
-        await log_warning(f"Publisher ({websocket.client.host}:{websocket.client.port}) disconnected from the channel `{channel_id}`.")
+        await log_warning(
+            f"Publisher ({websocket.client.host}:{websocket.client.port}) disconnected from the channel `{channel_id}`."
+        )
     except Exception as e:
         await log_exception(f"Exception occurred: {str(e)}.")
 
@@ -71,7 +73,9 @@ async def subscribe(websocket: WebSocket, channel_id: str):
         while True:
             _ = await websocket.receive_json()
     except WebSocketDisconnect:
-        await log_warning(f"Client ({websocket.client.host}:{websocket.client.port}) disconnected from the channel `{channel_id}`.")
+        await log_warning(
+            f"Client ({websocket.client.host}:{websocket.client.port}) disconnected from the channel `{channel_id}`."
+        )
     except Exception as e:
         await log_exception(f"Exception occurred: {str(e)}.")
 

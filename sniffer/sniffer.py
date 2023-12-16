@@ -1,28 +1,20 @@
 import sys
-import threading
 from http.client import HTTPException
+
+from logger import create_logger
 from parser import parse_ip_packet_wrapper
 from pathlib import Path
-from time import sleep
 from urllib.error import HTTPError
 
 from loguru import logger
 from scapy.sendrecv import AsyncSniffer
-from websocket import WebSocket, create_connection
 from yaspin import yaspin
 
-from settings import CHANNEL_ID, DEFAULT_INTERFACE, LOGGING, MAX_RECONNECT, SERVER
+from settings import DEFAULT_INTERFACE
 
-# Create logger.
-logger.add(
-    f"{Path(__file__).stem}.log",
-    format=LOGGING["format"],
-    rotation=LOGGING["rotation"],
-    retention=LOGGING["retention"],
-)
+from socket_manager import connect, disconnect, web_socket, trigger
 
-socket_manager: WebSocket = None
-trigger = threading.Event()
+create_logger(f"{Path(__file__).stem}.log")
 
 
 @yaspin(text="Capturing Probe Requests...")
@@ -32,7 +24,7 @@ def capture_traffic(interface: str):
     """
     sniffer = AsyncSniffer(
         iface=interface,
-        prn=parse_ip_packet_wrapper(socket_manager, trigger),
+        prn=parse_ip_packet_wrapper(web_socket, trigger),
         store=False,
         stop_filter=lambda x: trigger.is_set(),
     )
@@ -40,44 +32,9 @@ def capture_traffic(interface: str):
     sniffer.join()
 
 
-@yaspin(text="Connecting to the Web Server...")
-def connection():
-    """
-    Attempts to establish socket connection with the server.
-    """
-    # TODO: Implement a real Backoff Protocol.
-    logger.info("Sniffer is trying to open a WebSocket connection to the Web Server.")
-    attempt_count = 0
-    global socket_manager
-    # Try to create connection MAX_RECONNECT times before terminating.
-    while True:
-        try:
-            # Create a socket connection.
-            socket_manager = create_connection(
-                f"ws://{SERVER['host']}:{SERVER['port']}/ws/pub/{CHANNEL_ID}"
-            )
-            logger.info("Web socket connection opened.")
-            return True
-        except Exception as e:
-            logger.exception(
-                f"There was an error during creation of socket connection: {str(e)}"
-            )
-            attempt_count += 1
-            if attempt_count == MAX_RECONNECT:
-                logger.error("Failed to connect to socket after 5 attempts.")
-                return False
-            logger.info("Trying to reconnect in 30 seconds.")
-            sleep(30)
-
-
-def disconnect():
-    if socket_manager and socket_manager.connected:
-        socket_manager.close()
-
-
 if __name__ == "__main__":
     while True:
-        if not connection():
+        if not connect():
             # 126 - Command invoked cannot execute
             sys.exit(126)
 

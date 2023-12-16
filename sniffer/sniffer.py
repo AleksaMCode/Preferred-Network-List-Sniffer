@@ -31,7 +31,7 @@ def capture_traffic(interface: str):
     Captures Wi-Fi traffic and store captured SSIDs.
     """
     sniffer = AsyncSniffer(
-            iface=interface, prn=parse_ip_packet_wrapper(socket_manager, trigger), store=0
+            iface=interface, prn=parse_ip_packet_wrapper(socket_manager, trigger), store=False
     )
     sniffer.start()
     sniffer.join()

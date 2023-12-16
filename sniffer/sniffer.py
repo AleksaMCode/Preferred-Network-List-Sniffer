@@ -75,21 +75,26 @@ def disconnect():
 
 
 if __name__ == "__main__":
-    if not connection():
-        # 126 - Command invoked cannot execute
-        sys.exit(126)
+    while True:
+        if not connection():
+            # 126 - Command invoked cannot execute
+            sys.exit(126)
 
-    try:
-        logger.info("Capture packages from Wi-Fi traffic.")
-        capture_traffic(f"{DEFAULT_INTERFACE}mon")
-    except (HTTPException, HTTPError) as e:
-        logger.exception(f"HTTP Exception: {str(e)}")
-    except KeyboardInterrupt as e:
-        logger.warning("Sniffer stopped forcefully.")
-        disconnect()
-        # 130 - Script terminated by Control-C
-        sys.exit(130)
-    except Exception as e:
-        logger.exception(str(e))
-    finally:
-        disconnect()
+        try:
+            logger.info("Capture packages from Wi-Fi traffic.")
+            capture_traffic(f"{DEFAULT_INTERFACE}mon")
+        except (HTTPException, HTTPError) as e:
+            logger.exception(f"HTTP Exception: {str(e)}")
+        except KeyboardInterrupt as e:
+            logger.warning("Sniffer stopped forcefully.")
+            disconnect()
+            # 130 - Script terminated by Control-C
+            sys.exit(130)
+        except Exception as e:
+            logger.exception(str(e))
+        finally:
+            if trigger.is_set():
+                # Reset trigger event.
+                trigger.clear()
+            else:
+                disconnect()

@@ -22,7 +22,7 @@ logger.add(
 )
 
 socket_manager = None
-stopper = threading.Event()
+trigger = threading.Event()
 
 
 @yaspin(text="Capturing Probe requests...")
@@ -31,7 +31,7 @@ def capture_traffic(interface: str):
     Captures Wi-Fi traffic and store captured SSIDs.
     """
     sniffer = AsyncSniffer(
-        iface=interface, args=(stopper,), prn=parse_ip_packet_wrapper(socket_manager, stopper), store=0
+            iface=interface, prn=parse_ip_packet_wrapper(socket_manager, trigger), store=0
     )
     sniffer.start()
     sniffer.join()

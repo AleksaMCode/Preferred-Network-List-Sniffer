@@ -70,7 +70,7 @@ def connection():
 
 
 def disconnect():
-    if socket_manager is not None:
+    if socket_manager and socket_manager.connected:
         socket_manager.close()
 
 

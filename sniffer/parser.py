@@ -8,7 +8,7 @@ from websocket import WebSocket
 from settings import TIMESTAMP_FORMAT
 
 
-def parse_ip_packet_wrapper(socket_manager: WebSocket, stopper: threading.Event):
+def parse_ip_packet_wrapper(socket_manager: WebSocket, trigger: threading.Event):
     def parse_ip_packet(packet):
         """
         Filters the packet and broadcasts sniffed data (SSID + timestamp) through a websocket.
@@ -17,8 +17,7 @@ def parse_ip_packet_wrapper(socket_manager: WebSocket, stopper: threading.Event)
         if packet.haslayer(Dot11ProbeReq):
             ssid = packet.info.decode("utf-8")
             if ssid:
-                socket_manager.recv()
-                if socket_manager.connected:
+                try:
                     socket_manager.send(
                         json.dumps(
                             {
@@ -29,7 +28,7 @@ def parse_ip_packet_wrapper(socket_manager: WebSocket, stopper: threading.Event)
                             }
                         )
                     )
-                else:
-                    stopper.set()
+                except Exception:
+                    trigger.set()
 
     return parse_ip_packet

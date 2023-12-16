@@ -25,7 +25,7 @@ socket_manager: WebSocket = None
 trigger = threading.Event()
 
 
-@yaspin(text="Capturing Probe requests...")
+@yaspin(text="Capturing Probe Requests...")
 def capture_traffic(interface: str):
     """
     Captures Wi-Fi traffic and store captured SSIDs.

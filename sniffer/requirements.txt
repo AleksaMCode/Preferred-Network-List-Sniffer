@@ -7,3 +7,4 @@ websocket-client==1.7.0
 yaspin==3.0.1
 starlette
 websockets==12.0
+rel==0.4.9.1

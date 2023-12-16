@@ -15,7 +15,11 @@ def parse_ip_packet_wrapper(socket_manager: WebSocket, trigger: threading.Event)
         """
         # Filter only Probe Request and ignore Probe Requests with wildcard in the SSID field.
         if packet.haslayer(Dot11ProbeReq):
-            ssid = packet.info.decode("utf-8")
+            ssid = None
+            try:
+                ssid = packet.info.decode("utf-8")
+            except UnicodeDecodeError:
+                pass
             if ssid:
                 try:
                     socket_manager.send(

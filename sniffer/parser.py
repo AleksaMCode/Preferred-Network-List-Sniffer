@@ -19,6 +19,7 @@ def parse_ip_packet_wrapper(socket_manager: WebSocket, trigger: threading.Event)
             try:
                 ssid = packet.info.decode("utf-8")
             except UnicodeDecodeError:
+                # TODO: Add logging here.
                 pass
             if ssid:
                 try:
@@ -33,6 +34,8 @@ def parse_ip_packet_wrapper(socket_manager: WebSocket, trigger: threading.Event)
                         )
                     )
                 except Exception:
+                    # TODO: Add `WebSocketConnectionClosedException` instead of a broad `Exception`.
+                    # TODO: Handle any other `Exception` with logging.
                     trigger.set()
 
     return parse_ip_packet

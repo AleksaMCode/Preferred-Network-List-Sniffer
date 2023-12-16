@@ -82,7 +82,7 @@ if __name__ == "__main__":
             sys.exit(126)
 
         try:
-            logger.info("Capture packages from Wi-Fi traffic.")
+            logger.info("Capture packets from Wi-Fi traffic.")
             capture_traffic(f"{DEFAULT_INTERFACE}mon")
         except (HTTPException, HTTPError) as e:
             logger.exception(f"HTTP Exception: {str(e)}")

@@ -8,7 +8,7 @@ from urllib.error import HTTPError
 
 from loguru import logger
 from scapy.sendrecv import AsyncSniffer
-from websocket import create_connection, WebSocket
+from websocket import WebSocket, create_connection
 from yaspin import yaspin
 
 from settings import CHANNEL_ID, DEFAULT_INTERFACE, LOGGING, MAX_RECONNECT, SERVER

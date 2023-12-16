@@ -69,6 +69,11 @@ def connection():
             sleep(30)
 
 
+def disconnect():
+    if socket_manager is not None:
+        socket_manager.close()
+
+
 if __name__ == "__main__":
     if not connection():
         # 126 - Command invoked cannot execute
@@ -81,10 +86,10 @@ if __name__ == "__main__":
         logger.exception(f"HTTP Exception: {str(e)}")
     except KeyboardInterrupt as e:
         logger.warning("Sniffer stopped forcefully.")
+        disconnect()
         # 130 - Script terminated by Control-C
         sys.exit(130)
     except Exception as e:
         logger.exception(str(e))
-
-    if socket_manager is not None:
-        socket_manager.close()
+    finally:
+        disconnect()

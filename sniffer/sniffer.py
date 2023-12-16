@@ -46,6 +46,7 @@ def connection():
     Attempts to establish socket connection with the server.
     """
     # TODO: Implement a real Backoff Protocol.
+    logger.info("Sniffer is trying to open a WebSocket connection to the Web Server.")
     attempt_count = 0
     global socket_manager
     # Try to create connection MAX_RECONNECT times before terminating.
@@ -93,8 +94,11 @@ if __name__ == "__main__":
         except Exception as e:
             logger.exception(str(e))
         finally:
+            logger.info("Sniffer has been stopped.")
             if trigger.is_set():
                 # Reset trigger event.
                 trigger.clear()
             else:
                 disconnect()
+
+        logger.info("Starting the sniffer again.")

@@ -1,5 +1,9 @@
 import sys
+import threading
 from http.client import HTTPException
+
+from websocket import WebSocketApp
+
 from parser import parse_ip_packet_wrapper
 from pathlib import Path
 from urllib.error import HTTPError
@@ -16,7 +20,7 @@ create_logger(f"{Path(__file__).stem}.log")
 
 
 @yaspin(text="Capturing Probe Requests...")
-def capture_traffic(web_socket, web_socket_thread):
+def capture_traffic(web_socket: WebSocketApp, web_socket_thread: threading.Thread):
     """
     Captures Wi-Fi traffic and publish SSIDs and other information.
     """
@@ -31,7 +35,7 @@ def capture_traffic(web_socket, web_socket_thread):
     web_socket_thread.join()
 
 
-if __name__ == "__main__":
+def start():
     while True:
         # Create a socket connection to server.
         web_socket, web_socket_thread = connect()
@@ -60,3 +64,7 @@ if __name__ == "__main__":
             disconnect(web_socket)
 
         log_info("Starting the sniffer again.")
+
+
+if __name__ == "__main__":
+    start()

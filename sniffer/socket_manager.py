@@ -1,7 +1,6 @@
 import threading
 from time import sleep
 
-import rel
 from websocket import WebSocketApp
 from yaspin import yaspin
 

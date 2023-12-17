@@ -8,7 +8,7 @@ from loguru import logger
 from scapy.sendrecv import AsyncSniffer
 from yaspin import yaspin
 
-from logger import create_logger, log_error2, log_exception2, log_info2, log_warning2
+from logger import create_logger, log_error, log_exception, log_info, log_warning
 from settings import DEFAULT_INTERFACE
 from socket_manager import connect, disconnect, trigger
 
@@ -39,23 +39,23 @@ if __name__ == "__main__":
             sys.exit(126)
 
         try:
-            log_info2("Capture packets from Wi-Fi traffic.")
+            log_info("Capture packets from Wi-Fi traffic.")
             capture_traffic(web_socket, web_socket_thread)
         except (HTTPException, HTTPError) as e:
             logger.exception2(f"HTTP Exception: {str(e)}")
         except KeyboardInterrupt as e:
-            log_warning2("Sniffer stopped forcefully.")
+            log_warning("Sniffer stopped forcefully.")
             disconnect(web_socket)
             # 130 - Script terminated by Control-C
             sys.exit(130)
         except Exception as e:
-            log_exception2(str(e))
+            log_exception(str(e))
         finally:
-            log_info2("Sniffer has been stopped.")
+            log_info("Sniffer has been stopped.")
             if trigger.is_set():
                 # Reset trigger event.
                 trigger.clear()
             print("EXIT")
             disconnect(web_socket)
 
-        log_info2("Starting the sniffer again.")
+        log_info("Starting the sniffer again.")

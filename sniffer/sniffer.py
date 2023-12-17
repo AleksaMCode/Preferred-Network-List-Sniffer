@@ -44,7 +44,7 @@ if __name__ == "__main__":
             # Capture the Wi-Fi packets.
             capture_traffic(web_socket, web_socket_thread)
         except (HTTPException, HTTPError) as e:
-            logger.exception2(f"HTTP Exception: {str(e)}")
+            log_exception(f"HTTP Exception: {str(e)}")
         except KeyboardInterrupt as e:
             log_warning("Sniffer stopped forcefully.")
             disconnect(web_socket)

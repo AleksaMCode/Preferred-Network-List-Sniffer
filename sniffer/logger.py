@@ -27,3 +27,18 @@ async def log_exception(message: str):
 
 async def log_warning(message: str):
     logger.warning(message)
+
+def log_info2(message: str):
+    logger.info(message)
+
+
+def log_error2(message: str):
+    logger.error(message)
+
+
+def log_exception2(message: str):
+    logger.exception(message)
+
+
+def log_warning2(message: str):
+    logger.warning(message)

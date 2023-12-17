@@ -5,7 +5,7 @@ from websocket import WebSocketApp
 from yaspin import yaspin
 
 from logger import log_error, log_exception, log_info
-from settings import CHANNEL_ID, MAX_RECONNECT, SERVER, DELAY
+from settings import CHANNEL_ID, DELAY, MAX_RECONNECT, SERVER
 
 trigger = threading.Event()
 
@@ -16,9 +16,7 @@ def on_error(ws, error):
 
 
 def on_close(ws, close_status_code, close_msg):
-    log_info(
-        f"Web socket connection closed with code {close_status_code}: {close_msg}"
-    )
+    log_info(f"Web socket connection closed with code {close_status_code}: {close_msg}")
     trigger.set()
 
 

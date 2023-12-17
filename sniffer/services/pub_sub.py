@@ -4,7 +4,12 @@ import json
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect, WebSocketException
 from starlette import status
 
-from logger import log_error_async, log_exception_async, log_info_async, log_warning_async
+from logger import (
+    log_error_async,
+    log_exception_async,
+    log_info_async,
+    log_warning_async,
+)
 from message_broker.websocket_broker import WebSocketBroker
 from settings import CHANNEL_ID
 

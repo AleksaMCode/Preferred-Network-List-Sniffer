@@ -58,7 +58,6 @@ if __name__ == "__main__":
             if trigger.is_set():
                 # Reset trigger event.
                 trigger.clear()
-            print("EXIT")
             disconnect(web_socket)
 
         log_info("Starting the sniffer again.")

@@ -4,7 +4,6 @@ from parser import parse_ip_packet_wrapper
 from pathlib import Path
 from urllib.error import HTTPError
 
-from loguru import logger
 from scapy.sendrecv import AsyncSniffer
 from yaspin import yaspin
 

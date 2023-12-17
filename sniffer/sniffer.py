@@ -1,7 +1,7 @@
 import sys
 from http.client import HTTPException
 
-from logger import create_logger
+from logger import create_logger, log_info2, log_exception2, log_error2, log_warning2
 from parser import parse_ip_packet_wrapper
 from pathlib import Path
 from urllib.error import HTTPError
@@ -12,50 +12,51 @@ from yaspin import yaspin
 
 from settings import DEFAULT_INTERFACE
 
-from socket_manager import connect, disconnect, web_socket, trigger
+from socket_manager import connect, disconnect, trigger
 
 create_logger(f"{Path(__file__).stem}.log")
 
 
 @yaspin(text="Capturing Probe Requests...")
-def capture_traffic(interface: str):
+def capture_traffic(web_socket,web_socket_thread):
     """
     Captures Wi-Fi traffic and store captured SSIDs.
     """
     sniffer = AsyncSniffer(
-        iface=interface,
+        iface=f"{DEFAULT_INTERFACE}mon",
         prn=parse_ip_packet_wrapper(web_socket, trigger),
         store=False,
         stop_filter=lambda x: trigger.is_set(),
     )
     sniffer.start()
     sniffer.join()
-
+    web_socket_thread.join()
 
 if __name__ == "__main__":
     while True:
-        if not connect():
+        web_socket,web_socket_thread = connect()
+        if not web_socket:
             # 126 - Command invoked cannot execute
             sys.exit(126)
-
+        
         try:
-            logger.info("Capture packets from Wi-Fi traffic.")
-            capture_traffic(f"{DEFAULT_INTERFACE}mon")
+            log_info2("Capture packets from Wi-Fi traffic.")
+            capture_traffic(web_socket,web_socket_thread)
         except (HTTPException, HTTPError) as e:
-            logger.exception(f"HTTP Exception: {str(e)}")
+            logger.exception2(f"HTTP Exception: {str(e)}")
         except KeyboardInterrupt as e:
-            logger.warning("Sniffer stopped forcefully.")
-            disconnect()
+            log_warning2("Sniffer stopped forcefully.")
+            disconnect(web_socket)
             # 130 - Script terminated by Control-C
             sys.exit(130)
         except Exception as e:
-            logger.exception(str(e))
+            log_exception2(str(e))
         finally:
-            logger.info("Sniffer has been stopped.")
+            log_info2("Sniffer has been stopped.")
             if trigger.is_set():
                 # Reset trigger event.
                 trigger.clear()
-            else:
-                disconnect()
+            print('EXIT')
+            disconnect(web_socket)
 
-        logger.info("Starting the sniffer again.")
+        log_info2("Starting the sniffer again.")

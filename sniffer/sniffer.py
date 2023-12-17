@@ -8,7 +8,7 @@ from loguru import logger
 from scapy.sendrecv import AsyncSniffer
 from yaspin import yaspin
 
-from logger import create_logger, log_error, log_exception, log_info, log_warning
+from logger import create_logger, log_exception, log_info, log_warning
 from settings import DEFAULT_INTERFACE
 from socket_manager import connect, disconnect, trigger
 

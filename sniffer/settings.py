@@ -12,7 +12,6 @@ SERVER = {
     "port": 3_001,
     "redis_host": "127.0.0.1",
     "redis_port": 6_379,
-    "url": "ws",
 }
 
 # Number of maximum reconnect attempts to the server before terminating sniffer.

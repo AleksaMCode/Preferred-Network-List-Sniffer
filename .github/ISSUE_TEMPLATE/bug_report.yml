@@ -12,6 +12,12 @@ body:
           required: true
   - type: textarea
     attributes:
+      label: Description
+      description: A concise description of the bug/error.
+    validations:
+      required: false
+  - type: textarea
+    attributes:
       label: System information
       description: Information about your system.
       placeholder: |

@@ -1,6 +1,5 @@
-# Firebase
-*firebase*.json
-.firebase*
+# Redis files
+*.rdb
 
 # Log files
 *.log

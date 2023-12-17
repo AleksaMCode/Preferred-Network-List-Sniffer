@@ -1,4 +1,9 @@
-firebase-admin==6.2.0
 loguru==0.7.2
-yaspin==3.0.1
 scapy==2.5.0
+fastapi==0.104.1
+uvicorn
+redis==5.0.1
+websocket-client==1.7.0
+yaspin==3.0.1
+starlette
+websockets==12.0

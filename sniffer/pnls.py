@@ -1,27 +1,35 @@
-import sys
-from http.client import HTTPException
-from urllib.error import HTTPError
+from pathlib import Path
 
-from settings import LOGGING
-from sniffer import capture_traffic
-from loguru import logger
+import uvicorn
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 
-logger.add(
-    LOGGING["filename"],
-    format=LOGGING["format"],
-    rotation=LOGGING["rotation"],
-    retention=LOGGING["rotation"],
+from logger import create_logger
+from services import pub_sub
+from settings import SERVER
+
+origins = ["*"]
+
+# Create a logger.
+create_logger(f"{Path(__file__).stem}.log")
+app = FastAPI()
+
+# Add router.
+app.include_router(pub_sub.router)
+
+# Add CORS middleware.
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 if __name__ == "__main__":
-    while True:
-        try:
-            logger.info("Capture packages from Wi-Fi traffic.")
-            capture_traffic(f"{sys.argv[1]}mon")
-        except (HTTPException, HTTPError) as e:
-            logger.exception(f"HTTP Exception: {str(e)}")
-        except KeyboardInterrupt as e:
-            logger.warning("Sniffer stopped forcefully.")
-            sys.exit(130)
-        except Exception as e:
-            logger.exception(str(e))
+    uvicorn.run(
+        f"{Path(__file__).stem}:app",
+        host=SERVER["localhost"],
+        port=SERVER["port"],
+        reload=True,
+    )

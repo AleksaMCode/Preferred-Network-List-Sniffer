@@ -12,6 +12,7 @@ def create_logger(file_name: str):
         enqueue=True,
     )
 
+
 # TODO: Rename methods.
 async def log_info(message: str):
     logger.info(message)
@@ -27,6 +28,7 @@ async def log_exception(message: str):
 
 async def log_warning(message: str):
     logger.warning(message)
+
 
 def log_info2(message: str):
     logger.info(message)

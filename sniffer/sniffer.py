@@ -1,7 +1,5 @@
 import sys
 from http.client import HTTPException
-
-from logger import create_logger, log_info2, log_exception2, log_error2, log_warning2
 from parser import parse_ip_packet_wrapper
 from pathlib import Path
 from urllib.error import HTTPError
@@ -10,15 +8,15 @@ from loguru import logger
 from scapy.sendrecv import AsyncSniffer
 from yaspin import yaspin
 
+from logger import create_logger, log_error2, log_exception2, log_info2, log_warning2
 from settings import DEFAULT_INTERFACE
-
 from socket_manager import connect, disconnect, trigger
 
 create_logger(f"{Path(__file__).stem}.log")
 
 
 @yaspin(text="Capturing Probe Requests...")
-def capture_traffic(web_socket,web_socket_thread):
+def capture_traffic(web_socket, web_socket_thread):
     """
     Captures Wi-Fi traffic and store captured SSIDs.
     """
@@ -32,16 +30,17 @@ def capture_traffic(web_socket,web_socket_thread):
     sniffer.join()
     web_socket_thread.join()
 
+
 if __name__ == "__main__":
     while True:
-        web_socket,web_socket_thread = connect()
+        web_socket, web_socket_thread = connect()
         if not web_socket:
             # 126 - Command invoked cannot execute
             sys.exit(126)
-        
+
         try:
             log_info2("Capture packets from Wi-Fi traffic.")
-            capture_traffic(web_socket,web_socket_thread)
+            capture_traffic(web_socket, web_socket_thread)
         except (HTTPException, HTTPError) as e:
             logger.exception2(f"HTTP Exception: {str(e)}")
         except KeyboardInterrupt as e:
@@ -56,7 +55,7 @@ if __name__ == "__main__":
             if trigger.is_set():
                 # Reset trigger event.
                 trigger.clear()
-            print('EXIT')
+            print("EXIT")
             disconnect(web_socket)
 
         log_info2("Starting the sniffer again.")

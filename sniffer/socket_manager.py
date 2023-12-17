@@ -1,10 +1,11 @@
 import threading
+from time import sleep
 
+import rel
 from websocket import WebSocketApp
 from yaspin import yaspin
-from time import sleep
-import rel
-from logger import log_info2, log_exception2, log_error2
+
+from logger import log_error2, log_exception2, log_info2
 from settings import CHANNEL_ID, MAX_RECONNECT, SERVER
 
 trigger = threading.Event()
@@ -16,13 +17,15 @@ def on_error(ws, error):
 
 
 def on_close(ws, close_status_code, close_msg):
-    log_info2(f"Web socket connection closed with code {close_status_code}: {close_msg}")
+    log_info2(
+        f"Web socket connection closed with code {close_status_code}: {close_msg}"
+    )
     trigger.set()
 
 
 def on_open(ws):
     log_info2("Web socket connection opened.")
-    
+
 
 @yaspin(text="Connecting to the Web Server...")
 def connect():
@@ -31,24 +34,28 @@ def connect():
     """
     # TODO: Implement a real Backoff Protocol.
     log_info2("Sniffer is trying to open a WebSocket connection to the Web Server.")
-    if trigger.is_set(): # Reset trigger event.
+    if trigger.is_set():  # Reset trigger event.
         trigger.clear()
     attempt_count = 0
     # Try to create connection MAX_RECONNECT times before terminating.
     while True:
         try:
             # Create a socket connection.
-            web_socket = WebSocketApp(f"ws://{SERVER['host']}:{SERVER['port']}/ws/pub/{CHANNEL_ID}",
-                                      on_open=on_open,
-                                      on_error=on_error,
-                                      on_close=on_close)
+            web_socket = WebSocketApp(
+                f"ws://{SERVER['host']}:{SERVER['port']}/ws/pub/{CHANNEL_ID}",
+                on_open=on_open,
+                on_error=on_error,
+                on_close=on_close,
+            )
             # Set dispatcher to automatic reconnection, 5 seconds reconnect delay if connection closed unexpectedly
-            web_socket_thread = threading.Thread(target=web_socket.run_forever,daemon=False)
+            web_socket_thread = threading.Thread(
+                target=web_socket.run_forever, daemon=False
+            )
             web_socket_thread.start()
             # Socket connection isn't instant which is why the delay of 1 sec. is added.
             sleep(1)
             if web_socket.sock and web_socket.sock.connected:
-                return web_socket,web_socket_thread
+                return web_socket, web_socket_thread
         except Exception as e:
             log_exception2(
                 f"There was an error during creation of socket connection: {str(e)}"

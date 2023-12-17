@@ -12,13 +12,14 @@ from logger import create_logger, log_exception, log_info, log_warning
 from settings import DEFAULT_INTERFACE
 from socket_manager import connect, disconnect, trigger
 
+# Create a logger.
 create_logger(f"{Path(__file__).stem}.log")
 
 
 @yaspin(text="Capturing Probe Requests...")
 def capture_traffic(web_socket, web_socket_thread):
     """
-    Captures Wi-Fi traffic and store captured SSIDs.
+    Captures Wi-Fi traffic and publish SSIDs and other information.
     """
     sniffer = AsyncSniffer(
         iface=f"{DEFAULT_INTERFACE}mon",
@@ -33,6 +34,7 @@ def capture_traffic(web_socket, web_socket_thread):
 
 if __name__ == "__main__":
     while True:
+        # Create a socket connection to server.
         web_socket, web_socket_thread = connect()
         if not web_socket:
             # 126 - Command invoked cannot execute
@@ -40,6 +42,7 @@ if __name__ == "__main__":
 
         try:
             log_info("Capture packets from Wi-Fi traffic.")
+            # Capture the Wi-Fi packets.
             capture_traffic(web_socket, web_socket_thread)
         except (HTTPException, HTTPError) as e:
             logger.exception2(f"HTTP Exception: {str(e)}")

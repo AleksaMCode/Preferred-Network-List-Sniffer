@@ -5,7 +5,7 @@ from websocket import WebSocketApp
 from yaspin import yaspin
 
 from logger import log_error, log_exception, log_info
-from settings import CHANNEL_ID, MAX_RECONNECT, SERVER
+from settings import CHANNEL_ID, MAX_RECONNECT, SERVER, DELAY
 
 trigger = threading.Event()
 
@@ -64,7 +64,7 @@ def connect():
             log_error("Failed to connect to socket after 5 attempts.")
             return None
         log_info("Trying to reconnect in 30 seconds.")
-        sleep(30)
+        sleep(DELAY)
 
 
 def disconnect(web_socket):

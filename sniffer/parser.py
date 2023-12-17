@@ -3,12 +3,11 @@ import threading
 from datetime import datetime
 
 from scapy.layers.dot11 import Dot11ProbeReq
-from websocket import WebSocket
 
 from settings import TIMESTAMP_FORMAT
 
 
-def parse_ip_packet_wrapper(socket_manager: WebSocket, trigger: threading.Event):
+def parse_ip_packet_wrapper(web_socket, trigger: threading.Event):
     def parse_ip_packet(packet):
         """
         Filters the packet and broadcasts sniffed data (SSID + timestamp) through a websocket.
@@ -23,7 +22,7 @@ def parse_ip_packet_wrapper(socket_manager: WebSocket, trigger: threading.Event)
                 pass
             if ssid:
                 try:
-                    socket_manager.send(
+                    web_socket.send(
                         json.dumps(
                             {
                                 "ssid": ssid,

@@ -12,11 +12,13 @@ SERVER = {
     "port": 3_001,
     "redis_host": "127.0.0.1",
     "redis_port": 6_379,
-    "url": "ws",
 }
 
 # Number of maximum reconnect attempts to the server before terminating sniffer.
 MAX_RECONNECT = 5
+
+# Time delay, in seconds, between sniffer reconnect attempts.
+DELAY = 30
 
 # Format of the timestamp that will be stored alongside SSID.
 TIMESTAMP_FORMAT = "%Y-%m-%d %H:%M:%S"

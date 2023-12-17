@@ -14,8 +14,9 @@
 ## Table of contents
 - [Preferred Network List Sniffer - PNLS](#preferred-network-list-sniffer---pnls)
   - [Table of contents](#table-of-contents)
-  - [Requirements - What you'll need](#requirements---what-youll-need)
-  - [Prerequisites](#prerequisites)
+  - [How to build the PNLS](#how-to-build-the-pnls)
+    - [Requirements - What you'll need](#requirements---what-youll-need)
+    - [Prerequisites](#prerequisites)
   - [Setup](#setup)
     - [Using Docker](#using-docker)
     - [Using Prebuild Docker Image](#using-prebuild-docker-image)
@@ -25,17 +26,22 @@
     - [Pub-Sub Model](#pub-sub-model)
   - [References](#references)
 
-## Requirements - What you'll need
 
-<p align="justify">These are the things you will need in order to duplicate and deploy this project:</p>
+## How to build the PNLS 
 
-- Raspberry Pi
-- Micro SD card
+<p align="justify">Here are the things you will need in order to duplicate and deploy this project, including both the hardware and software components. Once you have your working environment ready, head over to <a href="https://github.com/AleksaMCode/Preferred-Network-List-Sniffer#setup">setup sections</a>.</p>
+
+### Requirements - What you'll need
+
+- Raspberry Pi (RPi)
+- Suitable RPi power supply (see [the power supply documentation for details](https://www.raspberrypi.com/documentation/computers/getting-started.html#power-supply))
+- Micro SD card (see [the SD card documentation for details](https://www.raspberrypi.com/documentation/computers/getting-started.html#sd-cards))
 - USB Wi-Fi adapter (optional)
   - Used to achieve bigger range when capturing packets.
 - HDMI cable (optional)
+  - Used to display the web UI from the RPi instead of connecting to it remotely using your computer.
 
-## Prerequisites
+### Prerequisites
 
 - Kali Linux OS
   - Needed in order to use monitoring mode and [aircrack-ng](https://github.com/aircrack-ng/aircrack-ng) tool. You can download Kali Linux ARM image [here](https://www.kali.org/get-kali/#kali-arm).
@@ -44,6 +50,9 @@
 - Start your network interface in a monitoring mode with: `airmon-ng start wlan0` [2].
 
 ## Setup
+
+> [!IMPORTANT]
+> Setup using Docker isn't available at the moment. It should be available soon.
 
 ### Using Docker
 

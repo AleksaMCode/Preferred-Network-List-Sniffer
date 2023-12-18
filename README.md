@@ -124,6 +124,17 @@ Here is a screenshot when I ran everything "manually":
 - Bottom Left: sniffer service
 - Bottom Right: React server
 
+<p align="center">
+<img
+src="./resources/kali_screenshot.png?raw=true"
+alt="PNLS Kali screenshot"
+class="center"
+/>
+<p align="center">
+    <label>Fig. 3. PNLS screenshot</label>
+    </p>
+</p>
+
 ## Probe Request
 
 <p align="justify">Probe Requests are management 802.11 frames which are used to connect devices to the previously associated wireless Access Points (AP). Whenever a device has enabled Wi-Fi, but it isn't connected to a network, it is periodically sending a burst of Probe Requests containing SSIDs from it's PNL. These frames are sent unencrypted, and anyone who is Radio Frequency (RF) monitoring can capture and read them. Probes are sent to the broadcast DA address (<code>ff:ff:ff:ff:ff:ff</code>). Once they are sent, the device starts the Probe Timer. At the end of the timer, the device processes the received answer. If the device hasn't received an answer, it will go to the next channel and repeat the process. There are two types of Probe Requests:</p>
@@ -148,7 +159,7 @@ alt="PNLS system deployment diagram"
 class="center"
 />
 <p align="center">
-    <label>Fig. 3. PNLS system deployment diagram</label>
+    <label>Fig. 4. PNLS system deployment diagram</label>
     </p>
 </p>
 
@@ -169,7 +180,7 @@ alt="pub-sub sequence diagram"
 class="center"
 />
 <p align="center">
-    <label>Fig. 4. PNLS Pub-Sub model sequence diagram</label>
+    <label>Fig. 5. PNLS Pub-Sub model sequence diagram</label>
     </p>
 </p>
 

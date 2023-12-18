@@ -3,7 +3,7 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 ![](https://img.shields.io/github/v/release/AleksaMCode/Preferred-Network-List-Sniffer)
 
-Preferred Network List Sniffer (PNLS) is a Red Team Wi-Fi auditing tool with a simple web interface that is capable of intercepting SSIDs[^1] from device's preferred network list (PNL)[^2]. This is achieved by sniffing out [Probe Requests](#probe-request) in the nearby vicinity which are then parsed for SSID and other information, and finally propagated to the web UI. The primary motivation for this project was to look into 802.11 Probe Requests and the privacy risks associated the data they transmit.
+Preferred Network List Sniffer (PNLS) is a Red Team Wi-Fi auditing tool with a simple web interface that is capable of intercepting SSIDs[^1] from device's preferred network list (PNL)[^2]. This is achieved by sniffing out [Probe Requests](#probe-request) in the nearby vicinity which are then parsed for SSID and other information, and finally propagated to the web UI. The primary motivation for this project was to look into 802.11 Probe Requests and the privacy risks associated with the data they transmit.
 
 <p align="center">
 <img
@@ -13,7 +13,7 @@ width="70%"
 class="center"
 />
 <p align="center">
-    <label>Fig. 1. PNLS system overview</label>
+    <label>Fig. 1: PNLS system overview</label>
     </p>
 </p>
 
@@ -74,7 +74,8 @@ alt="PNLS system overview"
 class="center"
 />
 <p align="center">
-    <label>Fig. 2. PNLS - RPi 4 with an external antena and a battery bank</label>
+    <label>Fig. 2:
+     PNLS - RPi 4 with an external antena and a battery bank</label>
     </p>
 </p>
 
@@ -131,7 +132,7 @@ alt="PNLS Kali screenshot"
 class="center"
 />
 <p align="center">
-    <label>Fig. 3. PNLS screenshot</label>
+    <label>Fig. 3: PNLS screenshot</label>
     </p>
 </p>
 
@@ -150,7 +151,7 @@ class="center"
 
 ## Architecture
 
-<p align="justify">This project uses Event-Driven architecture (EDA) which is designed atop of message-driven architectures. While this project uses a centralized solution (everything is run from RPi),  due to loosely coupled components as a result of usage of EDA, it is possible to create a decentralized solution if needed. PNLS consists of event publisher (sniffer), event consumer (web application) and event channel. Here, the event channel is implemented as Message-Oriented Middleware (MOM).</p>
+<p align="justify">This project uses Event-Driven architecture (EDA) which is designed atop of message-driven architectures. While this project uses a centralized solution (everything is ran from RPi),  due to loosely coupled components as a result of usage of EDA, it is possible to create a decentralized solution if needed. PNLS consists of event publisher (sniffer), event consumer (web application) and event channel. Here, the event channel is implemented as Message-Oriented Middleware (MOM).</p>
 
 <p align="center">
 <img
@@ -159,13 +160,13 @@ alt="PNLS system deployment diagram"
 class="center"
 />
 <p align="center">
-    <label>Fig. 4. PNLS system deployment diagram</label>
+    <label>Fig. 4: PNLS system deployment diagram</label>
     </p>
 </p>
 
 ### Why Asynchronous Server Gateway Interface?
 
-<p align="justify">Asynchronous Server Gateway Interface (ASGI) provides standardizes interface between async-capable Python web servers and services [4]. The ASGI was chosen due to the project's need for long-lived WebSocket connection in order to facilitate async communications between different clients. In addition, it also allows for utilization of the background coroutines during API calls. The PNLS uses <a href="https://github.com/encode/uvicorn">uvicorn</a> implementation for Python in order to use the ASGI web server.</p>
+<p align="justify">Asynchronous Server Gateway Interface (ASGI) provides standardizes interface between async-capable Python web servers and services [4]. The ASGI was chosen due to the project's need for a long-lived WebSocket connection in order to facilitate async communications between different clients. In addition, it also allows for utilization of the background coroutines during API calls. The PNLS uses <a href="https://github.com/encode/uvicorn">uvicorn</a> implementation for Python in order to use the ASGI web server.</p>
 
 ### Why WebSockets?
 <p align="justify">Through utilization of WebSocket communication protocol, we are able to facilitate full-duplex, two-way communication. While this project doesn't have the need for two-way communication, it does have a need for real-time interaction between the system components. This way, the sniffed data will be available to the end-user as soon as they are captured.</p>
@@ -180,7 +181,7 @@ alt="pub-sub sequence diagram"
 class="center"
 />
 <p align="center">
-    <label>Fig. 5. PNLS Pub-Sub model sequence diagram</label>
+    <label>Fig. 5: PNLS Pub-Sub model sequence diagram</label>
     </p>
 </p>
 
@@ -216,7 +217,7 @@ Memory for DRAM-Based Storage,” at 12th USENIX Conference on File and Storage
 Technologies (FAST)](https://www.usenix.org/system/files/conference/fast14/fast14-paper_rumble.pdf)
 8. [Enable Monitor Mode & Packet Injection on the Raspberry Pi](https://null-byte.wonderhowto.com/how-to/enable-monitor-mode-packet-injection-raspberry-pi-0189378/)
 
-[^1]: A Service Set Identifier (SSID) is an 802.11 ID used to name Wi-Fi network which consists of a maximum of 32 characters that can contain case-sensitive letters, numbers, and special characters no longer than 32 characters.
+[^1]: A Service Set Identifier (SSID) is an 802.11 ID used to name a Wi-Fi network which consists of a maximum of 32 characters that can contain case-sensitive letters, numbers, and special characters no longer than 32 characters.
 [^2]: A Preferred Network List is a collection of saved SSIDs with additional settings that you created the first time you connected your device to those networks.
 [^3]: Broadcom never officially supported monitor mode, which limited the usefulness of the wireless cards in Raspberry Pi devices [8]. The Nexmon project is a firmware patch for the Broadcom chips in use within RPi devices. [1]. This patch will allow you to use the monitoring mode on your RPi device.
 [^4]: The C-based Firmware Patching Framework for Broadcom/Cypress Wi-Fi Chips that enables Monitor Mode, Frame Injection and much more.

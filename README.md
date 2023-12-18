@@ -205,6 +205,6 @@ Memory for DRAM-Based Storage,” at 12th USENIX Conference on File and Storage
 Technologies (FAST)](https://www.usenix.org/system/files/conference/fast14/fast14-paper_rumble.pdf)
 8. [Enable Monitor Mode & Packet Injection on the Raspberry Pi](https://null-byte.wonderhowto.com/how-to/enable-monitor-mode-packet-injection-raspberry-pi-0189378/)
 
-[^1]: <p align="justify">A Service Set Identifier (SSID) is an 802.11 ID used to name Wi-Fi network which consists of a maximum of 32 characters that can contain case-sensitive letters, numbers, and special characters no longer than 32 characters.</p>
-[^2]: <p align="justify">Broadcom never officially supported monitor mode, which limited the usefulness of the wireless cards in Raspberry Pi devices [8]. The Nexmon project is a firmware patch for the Broadcom chips in use within RPi devices. [1]. This patch will allow you to use the monitoring mode on your RPi device.</p>
-[^3]: <p align="justify">The C-based Firmware Patching Framework for Broadcom/Cypress WiFi Chips that enables Monitor Mode, Frame Injection and much more.</p>
+[^1]: A Service Set Identifier (SSID) is an 802.11 ID used to name Wi-Fi network which consists of a maximum of 32 characters that can contain case-sensitive letters, numbers, and special characters no longer than 32 characters.
+[^2]: Broadcom never officially supported monitor mode, which limited the usefulness of the wireless cards in Raspberry Pi devices [8]. The Nexmon project is a firmware patch for the Broadcom chips in use within RPi devices. [1]. This patch will allow you to use the monitoring mode on your RPi device.
+[^3]: The C-based Firmware Patching Framework for Broadcom/Cypress Wi-Fi Chips that enables Monitor Mode, Frame Injection and much more.

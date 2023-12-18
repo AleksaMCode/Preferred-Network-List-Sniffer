@@ -4,7 +4,7 @@
 
 <p align="justify">PNLS Backend is written using Python. All of the needed packages are stored inside of the <i>requirements.txt</i>.</p>
 
-> [NOTE!]
+> [!NOTE]
 > <p align="justify">Code is formatted using <b>Black</b> and linted with <b>flake8</b>. You can use <code>sh formatter.sh</code> command to format you code.
 
 ## Run

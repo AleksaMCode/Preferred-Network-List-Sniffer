@@ -64,7 +64,7 @@ class="center"
     - You will also have to install the *aircrack-ng* tool, as it only comes preinstalled on the Kali Linux.
 - Start your network interface in a monitoring mode with: `airmon-ng start wlan0` [2].
 
-> [NOTE!]
+> [!NOTE]
 > <p align="justify">The Kali image uses <a href="https://re4son-kernel.com/">Re4son</a>'s kernel, which includes the drivers for external Wi-Fi cards and the nexmon firmware for the built-in wireless card on the RPi 3 and 4 [3].</p>
 
 <p align="center">
@@ -126,7 +126,7 @@ Here is a screenshot when I ran everything "manually":
 
 ## Probe Request
 
-<p align="justify">Probe Requests are management 802.11 frames which are used to connect devices to the previously associated wireless Access Points (AP). Whenever a device has enabled Wi-Fi, but it isn't connected to a network, it is periodically sending a burst of Probe Requests containing SSIDs from it's PNL. These frames are sent unencrypted, and anyone who is Radio Frequency (RF) monitoring can capture and read them. Probes are sent to the broadcast DA address (`ff:ff:ff:ff:ff:ff`). Once they are sent, the device starts the Probe Timer. At the end of the timer, the device processes the received answer. If the device hasn't received an answer, it will go to the next channel and repeat the process. There are two types of Probe Requests:</p>
+<p align="justify">Probe Requests are management 802.11 frames which are used to connect devices to the previously associated wireless Access Points (AP). Whenever a device has enabled Wi-Fi, but it isn't connected to a network, it is periodically sending a burst of Probe Requests containing SSIDs from it's PNL. These frames are sent unencrypted, and anyone who is Radio Frequency (RF) monitoring can capture and read them. Probes are sent to the broadcast DA address (<code>ff:ff:ff:ff:ff:ff</code>). Once they are sent, the device starts the Probe Timer. At the end of the timer, the device processes the received answer. If the device hasn't received an answer, it will go to the next channel and repeat the process. There are two types of Probe Requests:</p>
 <ul>
   <li><p align="justify"><i>Directed Probe Requests</i> - using specific SSID from device's PNL</p></li>
   <li><p align="justify"><i>Null Probe Requests</i> - using Wildcard SSID (empty SSID)</p></li>
@@ -205,6 +205,6 @@ Memory for DRAM-Based Storage,” at 12th USENIX Conference on File and Storage
 Technologies (FAST)](https://www.usenix.org/system/files/conference/fast14/fast14-paper_rumble.pdf)
 8. [Enable Monitor Mode & Packet Injection on the Raspberry Pi](https://null-byte.wonderhowto.com/how-to/enable-monitor-mode-packet-injection-raspberry-pi-0189378/)
 
-[^1]: A Service Set Identifier (SSID) is an 802.11 ID used to name Wi-Fi network which consists of a maximum of 32 characters that can contain case-sensitive letters, numbers, and special characters no longer than 32 characters.
-[^2]: Broadcom never officially supported monitor mode, which limited the usefulness of the wireless cards in Raspberry Pi devices [8]. The Nexmon project is a firmware patch for the Broadcom chips in use within RPi devices. [1]. This patch will allow you to use the monitoring mode on your RPi device.
-[^3]: The C-based Firmware Patching Framework for Broadcom/Cypress WiFi Chips that enables Monitor Mode, Frame Injection and much more.
+[^1]: <p align="justify">A Service Set Identifier (SSID) is an 802.11 ID used to name Wi-Fi network which consists of a maximum of 32 characters that can contain case-sensitive letters, numbers, and special characters no longer than 32 characters.</p>
+[^2]: <p align="justify">Broadcom never officially supported monitor mode, which limited the usefulness of the wireless cards in Raspberry Pi devices [8]. The Nexmon project is a firmware patch for the Broadcom chips in use within RPi devices. [1]. This patch will allow you to use the monitoring mode on your RPi device.</p>
+[^3]: <p align="justify">The C-based Firmware Patching Framework for Broadcom/Cypress WiFi Chips that enables Monitor Mode, Frame Injection and much more.</p>

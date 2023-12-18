@@ -5,7 +5,7 @@
 
 PNLS Frontend is written using JavaScript and [React](https://github.com/facebook/react).
 
-> [NOTE!]
+> [!NOTE]
 > - Code is formatted with formatted with **Prettier** and linted with **ESLint**.
 > - You can install `Node.js` using the [`node_install.sh`](./node_install.sh) script.
 

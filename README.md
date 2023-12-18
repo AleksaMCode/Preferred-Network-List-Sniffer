@@ -3,7 +3,7 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 ![](https://img.shields.io/github/v/release/AleksaMCode/Preferred-Network-List-Sniffer)
 
-Preferred Network List Sniffer (PNLS) is a Red Team Wi-Fi auditing tool with a simple web interface that is capable of intercepting SSIDs[^1] from device's preferred network lists (PNLs). This is achieved by sniffing out [Probe Requests](#probe-request) in the nearby vicinity which are then parsed for SSID and other information, and finally propagated to the web UI. The primary motivation for this project was to look into 802.11 Probe Requests and the privacy risks associated the data they transmit.
+Preferred Network List Sniffer (PNLS) is a Red Team Wi-Fi auditing tool with a simple web interface that is capable of intercepting SSIDs[^1] from device's preferred network list (PNL)[^2]. This is achieved by sniffing out [Probe Requests](#probe-request) in the nearby vicinity which are then parsed for SSID and other information, and finally propagated to the web UI. The primary motivation for this project was to look into 802.11 Probe Requests and the privacy risks associated the data they transmit.
 
 <p align="center">
 <img
@@ -60,7 +60,7 @@ class="center"
 
 - Kali Linux OS
   - Needed in order to use monitoring mode and [aircrack-ng](https://github.com/aircrack-ng/aircrack-ng) tool. You can download Kali Linux ARM image from [here](https://www.kali.org/get-kali/#kali-arm).
-    - Alternatively, you could use another OS, but you will need to patch[^2] the kernel using the [nexmon](https://github.com/seemoo-lab/nexmon)[^3] or use a wireless adapter that supports monitoring mode. Here is a [link](https://elinux.org/RPi_USB_Wi-Fi_Adapters) for supported USB adapters by Raspberry Pi.
+    - Alternatively, you could use another OS, but you will need to patch[^3] the kernel using the [nexmon](https://github.com/seemoo-lab/nexmon)[^4] or use a wireless adapter that supports monitoring mode. Here is a [link](https://elinux.org/RPi_USB_Wi-Fi_Adapters) for supported USB adapters by Raspberry Pi.
     - You will also have to install the *aircrack-ng* tool, as it only comes preinstalled on the Kali Linux.
 - Start your network interface in a monitoring mode with: `airmon-ng start wlan0` [2].
 
@@ -217,5 +217,6 @@ Technologies (FAST)](https://www.usenix.org/system/files/conference/fast14/fast1
 8. [Enable Monitor Mode & Packet Injection on the Raspberry Pi](https://null-byte.wonderhowto.com/how-to/enable-monitor-mode-packet-injection-raspberry-pi-0189378/)
 
 [^1]: A Service Set Identifier (SSID) is an 802.11 ID used to name Wi-Fi network which consists of a maximum of 32 characters that can contain case-sensitive letters, numbers, and special characters no longer than 32 characters.
-[^2]: Broadcom never officially supported monitor mode, which limited the usefulness of the wireless cards in Raspberry Pi devices [8]. The Nexmon project is a firmware patch for the Broadcom chips in use within RPi devices. [1]. This patch will allow you to use the monitoring mode on your RPi device.
-[^3]: The C-based Firmware Patching Framework for Broadcom/Cypress Wi-Fi Chips that enables Monitor Mode, Frame Injection and much more.
+[^2]: A Preferred Network List is a collection of saved SSIDs with additional settings that you created the first time you connected your device to those networks.
+[^3]: Broadcom never officially supported monitor mode, which limited the usefulness of the wireless cards in Raspberry Pi devices [8]. The Nexmon project is a firmware patch for the Broadcom chips in use within RPi devices. [1]. This patch will allow you to use the monitoring mode on your RPi device.
+[^4]: The C-based Firmware Patching Framework for Broadcom/Cypress Wi-Fi Chips that enables Monitor Mode, Frame Injection and much more.

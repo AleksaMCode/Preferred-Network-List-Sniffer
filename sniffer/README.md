@@ -9,12 +9,6 @@
 
 ## Run
 
-Turn on the monitoring mode on your wlan interface.
-
-```shell
-sudo sudo airmon-ng start wlan0
-```
-
 After cloning the project move to the backend root folder.
 
 ```shell

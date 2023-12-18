@@ -5,8 +5,8 @@ DEFAULT_INTERFACE = "wlan0"
 
 # Server configuration.
 SERVER = {
-    # localhost address is needed when using `uvicorn` to start the server
-    # in order to make it visible on the local network.
+    # localhost address is needed to make `uvicorn` server
+    # accessible on the local network using different devices.
     "localhost": "0.0.0.0",
     "host": "127.0.0.1",
     "port": 3_001,

@@ -29,14 +29,14 @@ async def publish(websocket: WebSocket, channel_id: str):
         )
         raise WebSocketException(code=status.WS_1003_UNSUPPORTED_DATA)
 
-    await websocket.accept()
-    asyncio.create_task(
-        log_info_async(
-            f"Publisher ({websocket.client.host}:{websocket.client.port}) established socket connection successfully."
-        )
-    )
-
     try:
+        await websocket.accept()
+        asyncio.create_task(
+            log_info_async(
+                f"Publisher ({websocket.client.host}:{websocket.client.port}) established socket connection successfully."
+            )
+        )
+
         while True:
             data = await websocket.receive_text()
             if data:
@@ -63,20 +63,21 @@ async def subscribe(websocket: WebSocket, channel_id: str):
         )
         raise WebSocketException(code=status.WS_1003_UNSUPPORTED_DATA)
 
-    await websocket.accept()
-    asyncio.create_task(
-        log_info_async(
-            f"Subscriber ({websocket.client.host}:{websocket.client.port}) established socket connection successfully."
-        )
-    )
-
     try:
+        await websocket.accept()
+        asyncio.create_task(
+            log_info_async(
+                f"Subscriber ({websocket.client.host}:{websocket.client.port}) established socket connection successfully."
+            )
+        )
+
         await socket_manager.add_user_to_channel(channel_id, websocket)
         asyncio.create_task(
             log_info_async(
                 f"Client ({websocket.client.host}:{websocket.client.port}) subscribed successfully to the channel."
             )
         )
+
         while True:
             _ = await websocket.receive_json()
     except WebSocketDisconnect:

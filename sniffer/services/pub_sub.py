@@ -63,6 +63,8 @@ async def subscribe(websocket: WebSocket, channel_id: str):
         )
         raise WebSocketException(code=status.WS_1003_UNSUPPORTED_DATA)
 
+    await websocket.accept()
+
     try:
         await socket_manager.add_user_to_channel(channel_id, websocket)
         asyncio.create_task(

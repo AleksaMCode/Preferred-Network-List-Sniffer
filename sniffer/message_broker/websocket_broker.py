@@ -19,7 +19,6 @@ class WebSocketBroker:
         :param channel_id: Channel ID to add user to.
         :param websocket: WebSocket connection object.
         """
-        await websocket.accept()
         self.sockets.append(websocket)
 
         if self.channel_id is None:

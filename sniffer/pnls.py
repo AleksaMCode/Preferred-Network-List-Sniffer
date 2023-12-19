@@ -1,3 +1,4 @@
+from contextlib import asynccontextmanager
 from pathlib import Path
 
 import uvicorn
@@ -11,9 +12,17 @@ from settings import SERVER
 
 origins = ["*"]
 
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    yield
+    log_info("Server shutting down.")
+    await socket_manager.close_sockets()
+
+
 # Create a logger.
 create_logger(f"{Path(__file__).stem}.log")
-app = FastAPI()
+app = FastAPI(lifespan=lifespan)
 
 # Add router.
 app.include_router(pub_sub.router)
@@ -26,13 +35,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
-@app.on_event("shutdown")
-async def shutdown():
-    log_info("Server shut down.")
-    await socket_manager.close_sockets()
-
 
 if __name__ == "__main__":
     uvicorn.run(

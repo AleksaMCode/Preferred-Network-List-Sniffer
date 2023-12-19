@@ -13,7 +13,6 @@ def create_logger(file_name: str):
     )
 
 
-# TODO: Rename methods.
 async def log_info_async(message: str):
     logger.info(message)
 

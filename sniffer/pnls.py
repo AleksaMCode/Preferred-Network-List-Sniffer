@@ -4,7 +4,7 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from logger import create_logger
+from logger import create_logger, log_info
 from services import pub_sub
 from settings import SERVER
 
@@ -25,6 +25,12 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
+@app.on_event("shutdown")
+def shutdown():
+    log_info("Server shut down.")
+
 
 if __name__ == "__main__":
     uvicorn.run(

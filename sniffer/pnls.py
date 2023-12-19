@@ -15,6 +15,7 @@ origins = ["*"]
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    log_info("Server starting.")
     yield
     log_info("Server shutting down.")
     await socket_manager.close_sockets()

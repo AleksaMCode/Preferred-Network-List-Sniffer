@@ -6,10 +6,16 @@
 PNLS Frontend is written using JavaScript and [React](https://github.com/facebook/react).
 
 > [!NOTE]
-> - Code is formatted with formatted with **Prettier** and linted with **ESLint**.
+> - Code is formatted with **Prettier** and linted with **ESLint**.
 > - You can install `Node.js` using the [`node_install.sh`](./node_install.sh) script.
 
 ## Run
+
+After cloning the project move to the frontend root folder.
+
+```shell
+cd Preferred-Network-List-Sniffer/web
+```
 
 Install dependencies:
 
@@ -24,4 +30,4 @@ npm start
 ```
 
 > [!WARNING]
-> In order to be able to use `npm start` you need to install `react-scripts` first.
+> In order to use `npm start` you will need to install `react-scripts` first.

@@ -5,6 +5,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from logger import create_logger, log_info
+from message_broker.websocket_broker import socket_manager
 from services import pub_sub
 from settings import SERVER
 
@@ -28,8 +29,9 @@ app.add_middleware(
 
 
 @app.on_event("shutdown")
-def shutdown():
+async def shutdown():
     log_info("Server shut down.")
+    await socket_manager.close_sockets()
 
 
 if __name__ == "__main__":

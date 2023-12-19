@@ -10,11 +10,10 @@ from logger import (
     log_info_async,
     log_warning_async,
 )
-from message_broker.websocket_broker import WebSocketBroker
+from message_broker.websocket_broker import socket_manager
 from settings import CHANNEL_ID
 
 router = APIRouter(prefix="/ws")
-socket_manager = WebSocketBroker()
 
 
 @router.websocket("/pub/{channel_id}")

@@ -53,3 +53,6 @@ class WebSocketBroker:
         """
         for socket in self.sockets:
             await socket.close()
+
+
+socket_manager = WebSocketBroker()

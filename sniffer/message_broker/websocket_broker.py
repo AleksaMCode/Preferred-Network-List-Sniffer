@@ -10,7 +10,7 @@ from message_broker.message_broker import MessageBroker
 class WebSocketBroker:
     def __init__(self):
         self.channel_id = None
-        self.sockets: list = []
+        self.sockets: list[WebSocket] = []
         self.pubsub_client = MessageBroker()
 
     async def add_user_to_channel(self, channel_id: str, websocket: WebSocket) -> None:
@@ -46,3 +46,10 @@ class WebSocketBroker:
                 for socket in self.sockets:
                     data = message["data"].decode("utf-8")
                     await socket.send_json(json.loads(data))
+
+    async def close_sockets(self):
+        """
+        Closes client sockets.
+        """
+        for socket in self.sockets:
+            await socket.close()

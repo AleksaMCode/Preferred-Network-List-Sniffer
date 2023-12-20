@@ -1,25 +1,15 @@
-from contextlib import asynccontextmanager
 from pathlib import Path
 
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from logger import create_logger, log_info
-from message_broker.websocket_broker import socket_manager
+from logger import create_logger
 from services import pub_sub
 from settings import SERVER
+from utils.pnls_util import lifespan
 
 origins = ["*"]
-
-
-@asynccontextmanager
-async def lifespan(app: FastAPI):
-    log_info("Server starting.")
-    yield
-    log_info("Server shutting down.")
-    await socket_manager.close_sockets()
-
 
 # Create a logger.
 create_logger(f"{Path(__file__).stem}.log")

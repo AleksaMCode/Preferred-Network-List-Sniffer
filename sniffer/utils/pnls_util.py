@@ -19,3 +19,11 @@ async def lifespan(app: FastAPI):
     yield
     await log_info_async("Server shutting down.")
     await socket_manager.close_sockets()
+
+
+def shutdown():
+    """
+    Used to shut down the ASGI server.
+    """
+    log_error(f"Server shut down forcefully.")
+    os.kill(os.getpid(), signal.SIGTERM)

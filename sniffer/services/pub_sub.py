@@ -10,7 +10,7 @@ from logger import (
     log_error_async,
     log_exception_async,
     log_info_async,
-    log_warning_async,
+    log_warning_async, log_error,
 )
 from message_broker.websocket_broker import socket_manager
 from settings import CHANNEL_ID
@@ -95,5 +95,5 @@ def shutdown():
     """
     Used to shut down the ASGI server.
     """
-    await log_error_async(f"Server shut down forcefully.")
+    log_error(f"Server shut down forcefully.")
     os.kill(os.getpid(), signal.SIGTERM)

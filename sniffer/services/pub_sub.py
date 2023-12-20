@@ -1,5 +1,7 @@
 import asyncio
 import json
+import os
+import signal
 
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect, WebSocketException
 from starlette import status
@@ -48,6 +50,7 @@ async def publish(websocket: WebSocket, channel_id: str):
         )
     except Exception as e:
         await log_exception_async(f"Exception occurred: {str(e)}.")
+        shutdown()
 
 
 @router.websocket("/sub/{channel_id}")
@@ -85,3 +88,12 @@ async def subscribe(websocket: WebSocket, channel_id: str):
         )
     except Exception as e:
         await log_exception_async(f"Exception occurred: {str(e)}.")
+        shutdown()
+
+
+def shutdown():
+    """
+    Used to shut down the ASGI server.
+    """
+    await log_error_async(f"Server shut down forcefully.")
+    os.kill(os.getpid(), signal.SIGTERM)

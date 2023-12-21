@@ -1,6 +1,7 @@
 import asyncio
 import json
 
+import redis
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect, WebSocketException
 from starlette import status
 
@@ -48,6 +49,9 @@ async def publish(websocket: WebSocket, channel_id: str):
         await log_warning_async(
             f"Publisher ({websocket.client.host}:{websocket.client.port}) disconnected from the channel `{channel_id}`."
         )
+    except redis.exceptions.ConnectionError as e:
+        await log_exception_async(f"Failed to establish connection with Redis server due to an Exception: {str(e)}")
+        shutdown()
     except Exception as e:
         await log_exception_async(f"Exception occurred: {str(e)}.")
         shutdown()
@@ -86,6 +90,9 @@ async def subscribe(websocket: WebSocket, channel_id: str):
         await log_warning_async(
             f"Client ({websocket.client.host}:{websocket.client.port}) disconnected from the channel `{channel_id}`."
         )
+    except redis.exceptions.ConnectionError as e:
+        await log_exception_async(f"Failed to establish connection with Redis server due to an Exception: {str(e)}")
+        shutdown()
     except Exception as e:
         await log_exception_async(f"Exception occurred: {str(e)}.")
         shutdown()

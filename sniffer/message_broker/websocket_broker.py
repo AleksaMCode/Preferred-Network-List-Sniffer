@@ -14,7 +14,7 @@ class WebSocketBroker:
         self.sockets: list[WebSocket] = []
         self.pubsub_client = MessageBroker()
 
-    async def _init(self) -> None:
+    async def accept(self) -> None:
         """
         Connects to Redis server and establish channel.
         """
@@ -28,7 +28,6 @@ class WebSocketBroker:
         Adds a client's WebSocket connection to a channel.
         :param websocket: WebSocket connection object.
         """
-        await self._init()
         self.sockets.append(websocket)
 
     async def broadcast_to_channel(self, channel_id: str, message: str) -> None:
@@ -37,7 +36,6 @@ class WebSocketBroker:
         :param channel_id: Channel ID to publish to.
         :param message: Message to be broadcast.
         """
-        await self._init()
         await self.pubsub_client.publish(channel_id, message)
 
     async def _pubsub_data_reader(self, ps_subscriber: aioredis.Redis):

@@ -23,10 +23,10 @@ class WebSocketBroker:
             ps_subscriber = await self.pubsub_client.subscribe(self.channel_id)
             asyncio.create_task(self._pubsub_data_reader(ps_subscriber))
 
-    async def add_user_to_channel(self, channel_id: str, websocket: WebSocket) -> None:
+    async def add_client_to_channel(self, channel_id: str, websocket: WebSocket) -> None:
         """
-        Adds a user's WebSocket connection to a channel.
-        :param channel_id: Channel ID to add user to.
+        Adds a client's WebSocket connection to a channel.
+        :param channel_id: Channel ID to add client to.
         :param websocket: WebSocket connection object.
         """
         self.sockets.append(websocket)

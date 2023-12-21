@@ -10,7 +10,7 @@ from logger import (
     log_info_async,
     log_warning_async,
 )
-from message_broker.websocket_broker import socket_manager
+from utils.pnls_util import socket_broker
 from settings import CHANNEL_ID
 from utils.pnls_util import shutdown
 
@@ -40,7 +40,7 @@ async def publish(websocket: WebSocket, channel_id: str):
         while True:
             data = await websocket.receive_text()
             if data:
-                _ = await socket_manager.broadcast_to_channel(
+                _ = await socket_broker.broadcast_to_channel(
                     channel_id, json.dumps(data)
                 )
     except WebSocketDisconnect:
@@ -72,7 +72,7 @@ async def subscribe(websocket: WebSocket, channel_id: str):
             )
         )
 
-        await socket_manager.add_user_to_channel(channel_id, websocket)
+        await socket_broker.add_user_to_channel(channel_id, websocket)
         asyncio.create_task(
             log_info_async(
                 f"Client ({websocket.client.host}:{websocket.client.port}) subscribed successfully to the channel."

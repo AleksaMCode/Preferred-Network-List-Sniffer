@@ -5,6 +5,7 @@ from fastapi import WebSocket
 from redis import asyncio as aioredis
 
 from message_broker.message_broker import MessageBroker
+from settings import CHANNEL_ID
 
 
 class WebSocketBroker:
@@ -57,3 +58,6 @@ class WebSocketBroker:
         """
         for socket in self.sockets:
             await socket.close()
+
+
+socket_broker = WebSocketBroker(CHANNEL_ID)

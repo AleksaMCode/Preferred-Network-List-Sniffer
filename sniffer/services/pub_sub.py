@@ -38,6 +38,8 @@ async def publish(websocket: WebSocket, channel_id: str):
             )
         )
 
+        await socket_broker.accept()
+
         while True:
             data = await websocket.receive_text()
             if data:
@@ -75,6 +77,8 @@ async def subscribe(websocket: WebSocket, channel_id: str):
                 f"Subscriber ({websocket.client.host}:{websocket.client.port}) established socket connection successfully."
             )
         )
+
+        await socket_broker.accept()
 
         await socket_broker.add_client_to_channel(websocket)
         asyncio.create_task(

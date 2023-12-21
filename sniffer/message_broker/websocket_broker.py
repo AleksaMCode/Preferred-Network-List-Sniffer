@@ -36,7 +36,8 @@ class WebSocketBroker:
         :param channel_id: Channel ID to publish to.
         :param message: Message to be broadcast.
         """
-        await self.pubsub_client.publish(channel_id, message)
+        if self.sockets:
+            await self.pubsub_client.publish(channel_id, message)
 
     async def _pubsub_data_reader(self, ps_subscriber: aioredis.Redis):
         """

@@ -5,13 +5,23 @@ from fastapi import WebSocket
 from redis import asyncio as aioredis
 
 from message_broker.message_broker import MessageBroker
+from settings import CHANNEL_ID
 
 
 class WebSocketBroker:
-    def __init__(self):
-        self.channel_id = None
+    def __init__(self, channel_id: str):
+        self.channel_id = channel_id
         self.sockets: list[WebSocket] = []
         self.pubsub_client = MessageBroker()
+
+    async def _init(self) -> None:
+        """
+        Connects to Redis server and establish channel.
+        """
+        if not self.sockets:
+            await self.pubsub_client.connect()
+            ps_subscriber = await self.pubsub_client.subscribe(self.channel_id)
+            asyncio.create_task(self._pubsub_data_reader(ps_subscriber))
 
     async def add_user_to_channel(self, channel_id: str, websocket: WebSocket) -> None:
         """
@@ -20,12 +30,6 @@ class WebSocketBroker:
         :param websocket: WebSocket connection object.
         """
         self.sockets.append(websocket)
-
-        if self.channel_id is None:
-            self.channel_id = channel_id
-            await self.pubsub_client.connect()
-            ps_subscriber = await self.pubsub_client.subscribe(channel_id)
-            asyncio.create_task(self._pubsub_data_reader(ps_subscriber))
 
     async def broadcast_to_channel(self, channel_id: str, message: str) -> None:
         """
@@ -55,4 +59,10 @@ class WebSocketBroker:
             await socket.close()
 
 
-socket_manager = WebSocketBroker()
+socket_broker: WebSocketBroker = None
+
+
+async def create_broker() -> None:
+    global socket_broker
+    socket_broker = WebSocketBroker(CHANNEL_ID)
+    await socket_broker._init()

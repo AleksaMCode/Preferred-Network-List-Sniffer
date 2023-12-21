@@ -81,11 +81,6 @@ async def subscribe(websocket: WebSocket, channel_id: str):
         )
 
         await socket_broker.add_client_to_channel(websocket)
-        asyncio.create_task(
-            log_info_async(
-                f"Client ({websocket.client.host}:{websocket.client.port}) subscribed successfully to the channel."
-            )
-        )
 
         while True:
             _ = await websocket.receive_json()

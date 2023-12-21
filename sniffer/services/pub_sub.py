@@ -51,7 +51,9 @@ async def publish(websocket: WebSocket, channel_id: str):
             f"Publisher ({websocket.client.host}:{websocket.client.port}) disconnected from the channel `{channel_id}`."
         )
     except redis.exceptions.ConnectionError as e:
-        await log_exception_async(f"Failed to establish connection with Redis server due to an Exception: {str(e)}")
+        await log_exception_async(
+            f"Failed to establish connection with Redis server due to an Exception: {str(e)}"
+        )
         shutdown()
     except Exception as e:
         await log_exception_async(f"Exception occurred: {str(e)}.")
@@ -89,7 +91,9 @@ async def subscribe(websocket: WebSocket, channel_id: str):
             f"Client ({websocket.client.host}:{websocket.client.port}) disconnected from the channel `{channel_id}`."
         )
     except redis.exceptions.ConnectionError as e:
-        await log_exception_async(f"Failed to establish connection with Redis server due to an Exception: {str(e)}")
+        await log_exception_async(
+            f"Failed to establish connection with Redis server due to an Exception: {str(e)}"
+        )
         shutdown()
     except Exception as e:
         await log_exception_async(f"Exception occurred: {str(e)}.")

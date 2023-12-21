@@ -4,7 +4,7 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
 
-from logger import log_info_async, log_error
+from logger import log_error, log_info_async
 from message_broker.websocket_broker import socket_broker
 
 

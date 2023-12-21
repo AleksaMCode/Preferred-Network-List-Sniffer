@@ -10,11 +10,12 @@ from logger import (
     log_info_async,
     log_warning_async,
 )
-from utils.pnls_util import socket_broker
+from message_broker.websocket_broker import WebSocketBroker
 from settings import CHANNEL_ID
 from utils.pnls_util import shutdown
 
 router = APIRouter(prefix="/ws")
+socket_broker = WebSocketBroker(CHANNEL_ID)
 
 
 @router.websocket("/pub/{channel_id}")

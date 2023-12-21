@@ -5,7 +5,6 @@ from fastapi import WebSocket
 from redis import asyncio as aioredis
 
 from message_broker.message_broker import MessageBroker
-from settings import CHANNEL_ID
 
 
 class WebSocketBroker:
@@ -28,6 +27,7 @@ class WebSocketBroker:
         Adds a client's WebSocket connection to a channel.
         :param websocket: WebSocket connection object.
         """
+        await self._init()
         self.sockets.append(websocket)
 
     async def broadcast_to_channel(self, channel_id: str, message: str) -> None:
@@ -36,6 +36,7 @@ class WebSocketBroker:
         :param channel_id: Channel ID to publish to.
         :param message: Message to be broadcast.
         """
+        await self._init()
         await self.pubsub_client.publish(channel_id, message)
 
     async def _pubsub_data_reader(self, ps_subscriber: aioredis.Redis):
@@ -56,12 +57,3 @@ class WebSocketBroker:
         """
         for socket in self.sockets:
             await socket.close()
-
-
-socket_broker: WebSocketBroker = None
-
-
-async def create_broker() -> None:
-    global socket_broker
-    socket_broker = WebSocketBroker(CHANNEL_ID)
-    await socket_broker._init()

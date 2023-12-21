@@ -32,5 +32,5 @@ if __name__ == "__main__":
         f"{Path(__file__).stem}:app",
         host=SERVER["localhost"],
         port=SERVER["port"],
-        reload=True,
+        reload=False,
     )

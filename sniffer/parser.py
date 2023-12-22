@@ -28,7 +28,7 @@ def parse_ip_packet_wrapper(web_socket, trigger: threading.Event):
                                 "ssid": ssid,
                                 "timestamp": datetime.utcfromtimestamp(
                                     float(packet.time)
-                                    ).strftime(TIMESTAMP_FORMAT)[:-3],
+                                ).strftime(TIMESTAMP_FORMAT)[:-3],
                             }
                         )
                     )

@@ -1,11 +1,14 @@
 import asyncio
 import json
+
 import redis
 from fastapi import WebSocket
 from redis import asyncio as aioredis
 from starlette.websockets import WebSocketState
+
 from message_broker.message_broker import MessageBroker
 from settings import CHANNEL_ID
+
 
 class WebSocketBroker:
     def __init__(self, channel_id: str):
@@ -46,22 +49,27 @@ class WebSocketBroker:
         while True:
             message = None
             try:
-                message = await ps_subscriber.get_message(ignore_subscribe_messages=True)
+                message = await ps_subscriber.get_message(
+                    ignore_subscribe_messages=True
+                )
             except redis.exceptions.ConnectionError:
-            # TODO: Add logging.
-            # TODO: Replace return handle when Redis is closed when server is running with a better
-            #       approach, perhaps a back-off algorithm could be added.
+                # TODO: Add logging.
+                # TODO: Replace return handle when Redis is closed when server is running with a better
+                #       approach, perhaps a back-off algorithm could be added.
                 return
             except Exception as e:
-            # TODO: Implement handle of other Exceptions.    
+                # TODO: Implement handle of other Exceptions.
                 pass
 
             if message:
                 for socket in self.sockets:
-                    if socket.application_state == WebSocketState.CONNECTED and socket.client_state == WebSocketState.CONNECTED:
+                    if (
+                        socket.application_state == WebSocketState.CONNECTED
+                        and socket.client_state == WebSocketState.CONNECTED
+                    ):
                         data = message["data"].decode("utf-8")
                         await socket.send_json(json.loads(data))
-                    
+
     async def remove(self, websocket: WebSocket) -> None:
         self.sockets.remove(websocket)
 
@@ -70,7 +78,10 @@ class WebSocketBroker:
         Closes client sockets.
         """
         for socket in self.sockets:
-            if socket.application_state == WebSocketState.CONNECTED and socket.client_state == WebSocketState.CONNECTED:
+            if (
+                socket.application_state == WebSocketState.CONNECTED
+                and socket.client_state == WebSocketState.CONNECTED
+            ):
                 await socket.close()
 
 

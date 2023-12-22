@@ -3,10 +3,9 @@ import json
 
 from fastapi import WebSocket
 from redis import asyncio as aioredis
-
+from starlette.websockets import WebSocketState
 from message_broker.message_broker import MessageBroker
 from settings import CHANNEL_ID
-
 
 class WebSocketBroker:
     def __init__(self, channel_id: str):
@@ -45,7 +44,18 @@ class WebSocketBroker:
         :param ps_subscriber: PubSub object for the subscribed channel.
         """
         while True:
-            message = await ps_subscriber.get_message(ignore_subscribe_messages=True)
+            message = None
+            try:
+                message = await ps_subscriber.get_message(ignore_subscribe_messages=True)
+            except redis.exceptions.ConnectionError:
+            # TODO: Add logging.
+            # TODO: Replace return handle when Redis is closed when server is running with a better
+            #       approach, perhaps a back-off algorithm could be added.
+                return
+            except Exception as e:
+            # TODO: Implement handle of other Exceptions.    
+                pass
+
             if message:
                 for socket in self.sockets:
                     data = message["data"].decode("utf-8")

@@ -21,7 +21,7 @@ MAX_RECONNECT = 5
 DELAY = 30
 
 # Format of the timestamp that will be stored alongside SSID.
-TIMESTAMP_FORMAT = "%Y-%m-%d %H:%M:%S"
+TIMESTAMP_FORMAT = "%Y-%m-%d %H:%M:%S.%f"
 
 # Timestamp is used to name the channel id for storing data.
 # Format is 'year + month + day', e.q. 20231202.

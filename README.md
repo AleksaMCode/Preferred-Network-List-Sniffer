@@ -21,7 +21,7 @@ class="center"
 > All content in this project is intended for security research purpose only.
 
 > [!NOTE]
-> - <p align="justify">I'm currently writting a tehnical paper which will thoroughly explain theory that makes this tool possible. It will be published by the end of this year.</p>
+> - <p align="justify">I'm currently writing a tehnical paper which will thoroughly explain what that makes this tool possible. It should be published in the coming weeks.</p>
 > - <p align="justify">To monitor the ongoing work on the PNLS, see <a href="https://github.com/users/AleksaMCode/projects/1">project's board</a>.</p>
 
 ## Table of contents
@@ -34,7 +34,7 @@ class="center"
     - [Using Docker](#using-docker)
     - [Using Prebuild Docker Image](#using-prebuild-docker-image)
     - [Without Docker](#without-docker)
-  - [Probe Request](#probe-request)
+  - [Probe Requests](#probe-requests)
   - [Architecture](#architecture)
     - [Why Asynchronous Server Gateway Interface?](#why-asynchronous-server-gateway-interface)
     - [Why WebSockets?](#why-websockets)
@@ -62,7 +62,7 @@ class="center"
   - Needed in order to use monitoring mode and [aircrack-ng](https://github.com/aircrack-ng/aircrack-ng) tool. You can download Kali Linux ARM image from [here](https://www.kali.org/get-kali/#kali-arm).
     - Alternatively, you could use another OS, but you will need to patch[^3] the kernel using the [nexmon](https://github.com/seemoo-lab/nexmon)[^4] or use a wireless adapter that supports monitoring mode. Here is a [link](https://elinux.org/RPi_USB_Wi-Fi_Adapters) for supported USB adapters by Raspberry Pi.
     - You will also have to install the *aircrack-ng* tool, as it only comes preinstalled on the Kali Linux.
-- Start your network interface in a monitoring mode with: `airmon-ng start wlan0` [2].
+- Start your network interface in a monitoring mode with: `sudo airmon-ng start wlan0` [2].
 
 > [!NOTE]
 > <p align="justify">The Kali image uses <a href="https://re4son-kernel.com/">Re4son</a>'s kernel, which includes the drivers for external Wi-Fi cards and the nexmon firmware for the built-in wireless card on the RPi 3 and 4 [3].</p>
@@ -122,7 +122,7 @@ Here is a screenshot when I ran everything "manually":
 
 - Top Left: Redis server
 - Top Right: ASGI server
-- Bottom Left: sniffer service
+- Bottom Left: Sniffer service
 - Bottom Right: React server
 
 <p align="center">
@@ -136,7 +136,7 @@ class="center"
     </p>
 </p>
 
-## Probe Request
+## Probe Requests
 
 <p align="justify">Probe Requests are management 802.11 frames which are used to connect devices to the previously associated wireless Access Points (AP). Whenever a device has enabled Wi-Fi, but it isn't connected to a network, it is periodically sending a burst of Probe Requests containing SSIDs from it's PNL. These frames are sent unencrypted, and anyone who is Radio Frequency (RF) monitoring can capture and read them. Probes are sent to the broadcast DA address (<code>ff:ff:ff:ff:ff:ff</code>). Once they are sent, the device starts the Probe Timer. At the end of the timer, the device processes the received answer. If the device hasn't received an answer, it will go to the next channel and repeat the process. There are two types of Probe Requests:</p>
 <ul>
@@ -166,13 +166,13 @@ class="center"
 
 ### Why Asynchronous Server Gateway Interface?
 
-<p align="justify">Asynchronous Server Gateway Interface (ASGI) provides standardizes interface between async-capable Python web servers and services [4]. The ASGI was chosen due to the project's need for a long-lived WebSocket connection in order to facilitate async communications between different clients. In addition, it also allows for utilization of the background coroutines during API calls. The PNLS uses <a href="https://github.com/encode/uvicorn">uvicorn</a> implementation for Python in order to use the ASGI web server.</p>
+<p align="justify">Asynchronous Server Gateway Interface (ASGI) provides standardized interface between async-capable Python web servers and services [4]. The ASGI was chosen due to the project's need for a long-lived WebSocket connection in order to facilitate async communications between different clients. In addition, it also allows for utilization of the background coroutines during API calls. The PNLS uses <a href="https://github.com/encode/uvicorn">uvicorn</a> implementation for Python in order to use the ASGI web server.</p>
 
 ### Why WebSockets?
 <p align="justify">Through utilization of WebSocket communication protocol, we are able to facilitate full-duplex, two-way communication. While this project doesn't have the need for two-way communication, it does have a need for real-time interaction between the system components. This way, the sniffed data will be available to the end-user as soon as they are captured.</p>
 
 ### Pub-Sub Model
-<p align="justify">Project's MOM is realized through the Message Broker using Redis. In the publish-subscribe (pub-sub) model, <i>sniffer</i> is responsible for producing messages, while the web application (subscriber) registers for the specific Topic (Redis channel). When a sniffer sends a message to a Topic, it is distributed to all subscribed consumers, allowing for the asynchronous and scalable communication. PNLS uses lightweight messaging protocol <i>Redis Pub/Sub</i> for message broadcasting in order to propagate short-lived messages with low latency and large throughput [5][6]. In this way, overheads of encoding data structures in a form that can be written to a disk have been avoided and in doing this solution will have potential better performance [7]. Figure below displays the simplified system activity through the event-driven workflow.</p>
+<p align="justify">Project's MOM is realized through the Message Broker using Redis. In the publish-subscribe (pub-sub) model, <i>sniffer</i> is responsible for producing messages, while the web application (subscriber) registers for the specific Topic (Redis channel). When a <i>sniffer</i> sends a message to a Topic, it is distributed to all subscribed consumers, allowing for the asynchronous and scalable communication. PNLS uses lightweight messaging protocol <i>Redis Pub/Sub</i> for message broadcasting in order to propagate short-lived messages with low latency and large throughput [5][6]. In this way, overheads of encoding data structures in a form that can be written to a disk have been avoided. In doing so, this solution will have potentially better performance [7]. Figure below displays the simplified system activity through the event-driven workflow.</p>
 
 <p align="center">
 <img
@@ -191,7 +191,7 @@ class="center"
 ## Acronyms
  <table>
   <tr>    <td>PNL</td>    <td>Preferred Network List</td>  </tr>
-  <tr>  <td>PNLS</td>   <td>Preferred Network List Sniffer</td> </tr>
+  <tr>    <td>PNLS</td>   <td>Preferred Network List Sniffer</td> </tr>
   <tr>    <td>SSID</td>    <td>Service Set Identifier</td>  </tr>
   <tr>    <td>UI</td>    <td>User Interface</td>  </tr>
   <tr>    <td>RPi</td>    <td>Raspberry Pi</td>  </tr>

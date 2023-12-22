@@ -1,6 +1,7 @@
 import asyncio
 import json
 
+import redis
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect, WebSocketException
 from starlette import status
 
@@ -10,11 +11,11 @@ from logger import (
     log_info_async,
     log_warning_async,
 )
-from message_broker.websocket_broker import WebSocketBroker
+from message_broker.websocket_broker import socket_broker
 from settings import CHANNEL_ID
+from utils.pnls_util import shutdown
 
 router = APIRouter(prefix="/ws")
-socket_manager = WebSocketBroker()
 
 
 @router.websocket("/pub/{channel_id}")
@@ -29,26 +30,34 @@ async def publish(websocket: WebSocket, channel_id: str):
         )
         raise WebSocketException(code=status.WS_1003_UNSUPPORTED_DATA)
 
-    await websocket.accept()
-    asyncio.create_task(
-        log_info_async(
-            f"Publisher ({websocket.client.host}:{websocket.client.port}) established socket connection successfully."
-        )
-    )
-
     try:
+        await socket_broker.accept()
+
+        await websocket.accept()
+        asyncio.create_task(
+            log_info_async(
+                f"Publisher ({websocket.client.host}:{websocket.client.port}) established socket connection successfully."
+            )
+        )
+
         while True:
             data = await websocket.receive_text()
             if data:
-                _ = await socket_manager.broadcast_to_channel(
+                _ = await socket_broker.broadcast_to_channel(
                     channel_id, json.dumps(data)
                 )
     except WebSocketDisconnect:
         await log_warning_async(
             f"Publisher ({websocket.client.host}:{websocket.client.port}) disconnected from the channel `{channel_id}`."
         )
+    except redis.exceptions.ConnectionError as e:
+        await log_exception_async(
+            f"Failed to establish connection with Redis server due to an Exception: {str(e)}"
+        )
+        shutdown()
     except Exception as e:
         await log_exception_async(f"Exception occurred: {str(e)}.")
+        shutdown()
 
 
 @router.websocket("/sub/{channel_id}")
@@ -64,17 +73,29 @@ async def subscribe(websocket: WebSocket, channel_id: str):
         raise WebSocketException(code=status.WS_1003_UNSUPPORTED_DATA)
 
     try:
-        await socket_manager.add_user_to_channel(channel_id, websocket)
+        await socket_broker.accept()
+
+        await websocket.accept()
         asyncio.create_task(
             log_info_async(
-                f"Client ({websocket.client.host}:{websocket.client.port}) subscribed successfully to the channel."
+                f"Subscriber ({websocket.client.host}:{websocket.client.port}) established socket connection successfully."
             )
         )
+
+        await socket_broker.add_client_to_channel(websocket)
+
         while True:
             _ = await websocket.receive_json()
     except WebSocketDisconnect:
         await log_warning_async(
             f"Client ({websocket.client.host}:{websocket.client.port}) disconnected from the channel `{channel_id}`."
         )
+        await socket_broker.remove_client_from_channel(websocket)
+    except redis.exceptions.ConnectionError as e:
+        await log_exception_async(
+            f"Failed to establish connection with Redis server due to an Exception: {str(e)}"
+        )
+        shutdown()
     except Exception as e:
         await log_exception_async(f"Exception occurred: {str(e)}.")
+        shutdown()

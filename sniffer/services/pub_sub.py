@@ -90,7 +90,7 @@ async def subscribe(websocket: WebSocket, channel_id: str):
         await log_warning_async(
             f"Client ({websocket.client.host}:{websocket.client.port}) disconnected from the channel `{channel_id}`."
         )
-        await socket_broker.remove(websocket)
+        await socket_broker.remove_client_from_channel(websocket)
     except redis.exceptions.ConnectionError as e:
         await log_exception_async(
             f"Failed to establish connection with Redis server due to an Exception: {str(e)}"

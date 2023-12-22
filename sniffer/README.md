@@ -9,7 +9,15 @@
 
 ## Run
 
-After cloning the project move to the backend root folder.
+First start the `Redis` server by running the following command in the terminal:
+
+```shell
+redis-server
+```
+
+This will start the Redis server in the default configuration at port 6379.
+
+After, clone the project and move to the backend root folder.
 
 ```shell
 cd Preferred-Network-List-Sniffer/sniffer
@@ -28,7 +36,10 @@ pip3 install -r requirements.txt
 ```shell
 python3 pnls.py
 ```
-Serve with hot reload will be available on `localhost:3001/`.
+Serve without hot reload will be available on `localhost:3001/`.
+
+> [!WARNING]
+> In order to have ASGI server running, you first need to run a Redis server, otherwise the server will not start.
 
 To start the sniffer microservice, run the following:
 

@@ -60,6 +60,9 @@ class WebSocketBroker:
                 for socket in self.sockets:
                     data = message["data"].decode("utf-8")
                     await socket.send_json(json.loads(data))
+                    
+    async def remove(self, websocket: WebSocket) -> None:
+        self.sockets.remove(websocket)
 
     async def close_sockets(self):
         """

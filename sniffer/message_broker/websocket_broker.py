@@ -1,6 +1,6 @@
 import asyncio
 import json
-
+import redis
 from fastapi import WebSocket
 from redis import asyncio as aioredis
 from starlette.websockets import WebSocketState
@@ -66,7 +66,8 @@ class WebSocketBroker:
         Closes client sockets.
         """
         for socket in self.sockets:
-            await socket.close()
+            if socket.application_state == WebSocketState.CONNECTED and socket.client_state == WebSocketState.CONNECTED:
+                await socket.close()
 
 
 socket_broker = WebSocketBroker(CHANNEL_ID)

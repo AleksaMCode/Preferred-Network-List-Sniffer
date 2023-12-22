@@ -71,6 +71,10 @@ class WebSocketBroker:
                         await socket.send_json(json.loads(data))
 
     async def remove_client_from_channel(self, websocket: WebSocket) -> None:
+        """
+        Removes a client's WebSocket connection from a channel.
+        :param websocket: WebSocket connection object.
+        """
         self.sockets.remove(websocket)
 
     async def close_sockets(self):

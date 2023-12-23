@@ -81,35 +81,44 @@ class="center"
 
 ## Setup
 
-> [!IMPORTANT]
-> Setup using Docker isn't available at the moment, but it should be added soon. For now you can use [setup without Docker](#without-docker).
+> [!NOTE]
+> If you don't want to use `Docker` you can use [setup without Docker](#without-docker).
 
 ### Using Docker
 
-<p align="justify">Quickly setup a development instance, featuring hot-reloading on both the backend and the frontend:</p>
+<p align="justify">Quickly setup a development instance, featuring hot-reloading on the frontend:</p>
 
 ```bash
 # First clone this repo.
 git clone https://github.com/AleksaMCode/Preferred-Network-List-Sniffer.git
 # Move to the project root folder.
 cd Preferred-Network-List-Sniffer
-# Bring up the backend:
+# Bring up both the backend and the frontend server.
 docker compose up
-# Move into the web folder.
-cd web
-# Install npm dependencies.
-npm install
-# Start hot-reloading web server:
-npm start
-# This will spawn a tab on `localhost:3000`.
+# Move into the sniffer folder.
+cd sniffer
+# Run the Sniffer service.
+sudo python3 sniffer.py
 ```
 
 ### Using Prebuild Docker Image
 
-<p align="justify">Download the prebuild image from the GitHub Container Registry and run it locally.</p>
+<p align="justify">Download the latest prebuild images from the GitHub Container Registry and run them locally.</p>
 
 ```bash
-docker run ghcr.io/aleksamcode/pnls-ghcr:latest
+# First clone this repo.
+git clone https://github.com/AleksaMCode/Preferred-Network-List-Sniffer.git
+# Move to the project root folder.
+cd Preferred-Network-List-Sniffer
+# Download the prebuild images.
+docker pull ghcr.io/aleksamcode/pnls-backend-ghcr:latest
+docker pull ghcr.io/aleksamcode/pnls-frontend-ghcr:latest
+# Bring up both the backend and the frontend server.
+docker compose up
+# Move into the sniffer folder.
+cd sniffer
+# Run the Sniffer service.
+sudo python3 sniffer.py
 ```
 
 ### Without Docker

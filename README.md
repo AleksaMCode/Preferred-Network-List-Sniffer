@@ -86,7 +86,10 @@ class="center"
 
 ### Using Docker
 
-<p align="justify">Quickly setup a development instance, featuring hot-reloading on the frontend:</p>
+> [!NOTE]
+> <p align="justify">Before building images and running this multi-container Docker solution, you need to update the <i>redis_host</i> parameter in <code>setting.py</code> file. Simply change it from <u>127.0.0.1</u> to <u>redis</u>.
+
+<p align="justify">Quickly setup a development instance:</p>
 
 ```bash
 # First clone this repo.

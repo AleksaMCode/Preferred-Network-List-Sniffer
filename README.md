@@ -163,7 +163,7 @@ class="center"
 
 ## Architecture
 
-<p align="justify">This project uses Event-Driven architecture (EDA) which is designed atop of message-driven architectures. While this project uses a centralized solution (everything is ran from RPi),  due to loosely coupled components as a result of usage of EDA, it is possible to create a decentralized solution if needed. PNLS consists of event publisher (sniffer), event consumer (web application) and event channel. Here, the event channel is implemented as Message-Oriented Middleware (MOM).</p>
+<p align="justify">This project uses Event-Driven architecture (EDA) which is designed atop of message-driven architectures. While this project uses a centralized solution (everything is run from the RPi), due to loosely coupled components as a result of usage of EDA, it is possible to create a decentralized solution if needed. PNLS consists of event publisher (sniffer), event consumer (web application) and event channel. Here, the event channel is implemented as Message-Oriented Middleware (MOM).</p>
 
 <p align="center">
 <img
@@ -178,17 +178,17 @@ class="center"
 
 ### Why Asynchronous Server Gateway Interface?
 
-<p align="justify">Asynchronous Server Gateway Interface (ASGI) provides standardized interface between async-capable Python web servers and services [4]. The ASGI was chosen due to the project's need for a long-lived WebSocket connection in order to facilitate async communications between different clients. In addition, it also allows for utilization of the background coroutines during API calls. The PNLS uses <a href="https://github.com/encode/uvicorn">uvicorn</a> implementation for Python in order to use the ASGI web server.</p>
+<p align="justify">Asynchronous Server Gateway Interface (ASGI) provides a standardized interface between async-capable Python web servers and services [4]. The ASGI was chosen due to the project's need for a long-lived WebSocket connection in order to facilitate async communications between different clients. In addition, it also allows for utilization of the background coroutines during API calls. The PNLS uses <a href="https://github.com/encode/uvicorn">uvicorn</a> implementation for Python in order to use the ASGI web server.</p>
 
 ### Why WebSockets?
 <p align="justify">Through utilization of WebSocket communication protocol, we are able to facilitate full-duplex, two-way communication. While this project doesn't have the need for two-way communication, it does have a need for real-time interaction between the system components. This way, the sniffed data will be available to the end-user as soon as they are captured.</p>
 
 ### Pub-Sub Model
-<p align="justify">Project's MOM is realized through the Message Broker using Redis. In the publish-subscribe (pub-sub) model, <i>sniffer</i> is responsible for producing messages, while the web application (subscriber) registers for the specific Topic (Redis channel). When a <i>sniffer</i> sends a message to a Topic, it is distributed to all subscribed consumers, allowing for the asynchronous and scalable communication. PNLS uses lightweight messaging protocol <i>Redis Pub/Sub</i> for message broadcasting in order to propagate short-lived messages with low latency and large throughput [5][6]. In this way, overheads of encoding data structures in a form that can be written to a disk have been avoided. In doing so, this solution will have potentially better performance [7]. Figure below displays the simplified system activity through the event-driven workflow.</p>
+<p align="justify">Project's MOM is realized through the Message Broker using Redis. In the publish-subscribe (pub-sub) model, the <i>Sniffer</i> is responsible for producing messages, while the web application (subscriber) registers for the specific Topic (Redis channel). When the <i>Sniffer</i> sends a message to a Topic, it is distributed to all subscribed consumers, allowing for the asynchronous and scalable communication. PNLS uses lightweight messaging protocol <i>Redis Pub/Sub</i> for message broadcasting in order to propagate short-lived messages with low latency and large throughput [5][6]. In this way, overheads of encoding data structures in a form that can be written to a disk have been avoided. In doing so, this solution will have potentially better performance [7]. Figure below displays the simplified system activity through the event-driven workflow.</p>
 
 <p align="center">
 <img
-src="./resources/pub-sub_seq_diagram.svg?raw=true"
+src="./resources/pub-sub_seq_diagram.svg?raw=true?token=20231223"
 alt="pub-sub sequence diagram"
 class="center"
 />

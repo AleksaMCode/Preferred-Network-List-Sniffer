@@ -59,9 +59,9 @@ def connect():
             )
         attempt_count += 1
         if attempt_count == MAX_RECONNECT:
-            log_error("Failed to connect to socket after 5 attempts.")
+            log_error(f"Failed to connect to socket after {MAX_RECONNECT} attempts.")
             return None, None
-        log_info("Trying to reconnect in 30 seconds.")
+        log_info(f"Trying to reconnect in {DELAY} seconds.")
         sleep(DELAY)
 
 

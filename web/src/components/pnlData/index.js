@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { createRef } from 'react'
 import { Table } from 'react-bootstrap'
 import dateFormat from 'dateformat'
 import { motion } from 'framer-motion'
@@ -6,7 +6,7 @@ import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 const channel = dateFormat(new Date(), 'yyyymmdd')
-const socket = '127.0.0.1:3001'
+const socket = '192.168.100.12:3001'
 const ws = new WebSocket(`ws://${socket}/ws/sub/${channel}`)
 
 export class PnlData extends React.Component {
@@ -15,6 +15,7 @@ export class PnlData extends React.Component {
     this.state = {
       tableData: [],
     }
+    this.bottomRef = createRef()
   }
 
   componentDidMount() {
@@ -38,6 +39,14 @@ export class PnlData extends React.Component {
     ws.onclose = () => {
       toast.warn('Connection to the server has been terminated!')
     }
+  }
+
+  scrollToBottom = () => {
+    this.bottomRef.current.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  componentDidUpdate() {
+    this.scrollToBottom()
   }
 
   render() {
@@ -84,6 +93,7 @@ export class PnlData extends React.Component {
           </tbody>
         </Table>
         <ToastContainer />
+        <div ref={this.bottomRef} />
       </div>
     )
   }

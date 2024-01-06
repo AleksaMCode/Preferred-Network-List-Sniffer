@@ -2,3 +2,7 @@ README.md
 *.html
 Dockerfile
 .dockerignore
+build 
+coverage
+*.sh
+*.json

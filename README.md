@@ -81,8 +81,7 @@ class="center"
 
 ## Setup
 
-> [!NOTE]
-> If you don't want to use `Docker` you can use [setup without Docker](#without-docker).
+If you don't want to use `Docker` head over to [setup without Docker](#without-docker).
 
 ### Using Docker
 
@@ -126,11 +125,11 @@ sudo python3 sniffer.py
 
 ### Without Docker
 
-- <p align="justify">Backend: to start the ASGI and Redis server and to run microservices see <a href="./sniffer/README.md">these instructions</a>.</p>
+- <p align="justify">Backend: to start the ASGI and Redis server and to run services see <a href="./sniffer/README.md">these instructions</a>.</p>
 - <p align="justify">Frontend: to run the React server see <a href="./web/README.md"> these instructions</a>.</p>
 
 
-Here is a screenshot when I ran everything "manually":
+Here is a screenshot when everything was ran "manually":
 
 - Top Left: Redis server
 - Top Right: ASGI server

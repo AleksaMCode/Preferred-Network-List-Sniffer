@@ -21,7 +21,7 @@ class="center"
 > All content in this project is intended for security research purpose only.
 
 > [!NOTE]
-> - <p align="justify">I'm currently writing a tehnical paper which will thoroughly explain what that makes this tool possible. It should be published in the coming weeks.</p>
+> - <p align="justify">I'm currently writing a paper which will thoroughly explain theory that makes this tool possible. It should be published in the coming weeks.</p>
 > - <p align="justify">To monitor the ongoing work on the PNLS, see <a href="https://github.com/users/AleksaMCode/projects/1">project's board</a>.</p>
 
 ## Table of contents
@@ -39,6 +39,7 @@ class="center"
     - [Why Asynchronous Server Gateway Interface?](#why-asynchronous-server-gateway-interface)
     - [Why WebSockets?](#why-websockets)
     - [Pub-Sub Model](#pub-sub-model)
+  - [Screenshots](#screenshots)
   - [Acronyms](#acronyms)
   - [References](#references)
 
@@ -187,7 +188,7 @@ class="center"
 
 <p align="center">
 <img
-src="./resources/pub-sub_seq_diagram.svg?raw=true?token=20231223"
+src="./resources/pub-sub_seq_diagram.svg?raw=true"
 alt="pub-sub sequence diagram"
 class="center"
 />
@@ -198,6 +199,22 @@ class="center"
 
 > [!NOTE]
 > Implemented MOM does not provide a persistent storage or a message queue for data accumulation, which means messages will be lost if they are published to a Topic without subscribers.
+
+## Screenshots
+
+<p align="justify">Below is an example of web UI displaying published test SSIDs.</p>
+
+<p align="center">
+<img
+src="./resources/pnls_web.gif?raw=true"
+alt="PNLS web - example with test SSIDs"
+width="90%"
+class="center"
+/>
+<p align="center">
+    <label>Fig. 6: PNLS web - example with test SSIDs</label>
+    </p>
+</p>
 
 ## Acronyms
  <table>

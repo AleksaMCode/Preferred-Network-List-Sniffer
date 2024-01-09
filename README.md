@@ -45,7 +45,7 @@ class="center"
 
 ## How to build the PNLS 
 
-<p align="justify">Here are the things you will need in order to duplicate and deploy this project, including both the hardware and software components. Once you have your working environment ready, head over to <a href="#setup">setup sections</a>.</p>
+<p align="justify">Here is what you will need in order to duplicate and deploy this project, including both the hardware and software components. Once you have your working environment ready, head over to <a href="#setup">setup sections</a>.</p>
 
 ### Requirements
 
@@ -85,9 +85,6 @@ class="center"
 If you don't want to use `Docker` head over to [setup without Docker](#without-docker).
 
 ### Using Docker
-
-> [!NOTE]
-> <p align="justify">Before building images and running this multi-container Docker solution, you need to update the <i>redis_host</i> parameter in <code>setting.py</code> file. Simply change it from <u>127.0.0.1</u> to <u>redis</u>.
 
 <p align="justify">Quickly setup a development instance:</p>
 

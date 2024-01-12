@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: 'If you use this software, please cite it as below.'
+authors:
+  - given-names: Aleksa
+    family-names: Majkić
+    email: aleksamcode@gmail.com
+title: 'Preferred Network List Sniffer'
+version: 0.2.0
+type: software
+date-released: 2024-01-09
+url: 'https://github.com/AleksaMCode/Preferred-Network-List-Sniffer'
+keywords:
+  - rpi
+  - pln
+  - pnls
+  - 802.11
+  - ssid
+license: MIT

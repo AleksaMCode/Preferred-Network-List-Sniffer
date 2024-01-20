@@ -93,6 +93,8 @@ If you don't want to use `Docker` head over to [setup without Docker](#without-d
 git clone https://github.com/AleksaMCode/Preferred-Network-List-Sniffer.git
 # Move to the project root folder.
 cd Preferred-Network-List-Sniffer
+# Build backend and frontend image.
+docker compose build
 # Bring up both the backend and the frontend server.
 docker compose up
 # Move into the sniffer folder.
@@ -103,7 +105,7 @@ sudo python3 sniffer.py
 
 ### Using Prebuild Docker Image
 
-<p align="justify">Download the latest prebuild images from the GitHub Container Registry and run them locally.</p>
+<p align="justify">Currently, multi-platform images are not available, and the project only supports <code>arm64v8</code> architecture. Download the latest prebuild images from the GitHub Container Registry and run them locally.</p>
 
 ```bash
 # First clone this repo.

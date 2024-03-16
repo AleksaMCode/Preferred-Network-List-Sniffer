@@ -1,7 +1,7 @@
 name: Bug Report
 description: File a bug/issue
-title: "[BUG] <title>"
-labels: ["bug"]
+title: '[BUG] <title>'
+labels: ['bug']
 body:
   - type: checkboxes
     attributes:
@@ -16,15 +16,33 @@ body:
       description: A concise description of the bug/error.
     validations:
       required: false
+  - type: input
+    attributes:
+      label: PNLS version
+      description: PNLS version or the commit hash
+      placeholder: 0.2.0
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Python version
+      placeholder: 3.10
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Operating system
+      placeholder: Linux 5.10.46
+    validations:
+      required: true
   - type: textarea
     attributes:
-      label: System information
-      description: Information about your system.
+      label: Additional environment/system information
+      description: Further information about your system (setup).
       placeholder: |
         1. OS name
-        2. OS version
-        3. Architecture
-        4. Wireless card (if relevant):
+        2. Architecture
+        3. Wireless card (if relevant):
     validations:
       required: false
   - type: textarea
@@ -54,7 +72,7 @@ body:
     attributes:
       label: Anything else?
       description: |
-        Links? References? Anything that will provide more context about the issue you are encountering!
+        Links? References? Traces? Anything that will provide more context about the issue you are encountering!
 
         Tip: You can attach images or log files by clicking this area to highlight it and then dragging files in.
     validations:

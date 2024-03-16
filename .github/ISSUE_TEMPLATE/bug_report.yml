@@ -20,13 +20,13 @@ body:
     attributes:
       label: PNLS version
       description: PNLS version or the commit hash
-      placeholder: 0.2.0
+      placeholder: '0.2.0'
     validations:
       required: true
   - type: input
     attributes:
       label: Python version
-      placeholder: 3.10
+      placeholder: '3.10'
     validations:
       required: true
   - type: input

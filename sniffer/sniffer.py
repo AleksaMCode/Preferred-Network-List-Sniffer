@@ -1,3 +1,4 @@
+import subprocess
 import sys
 import threading
 from http.client import HTTPException
@@ -33,12 +34,36 @@ def capture_traffic(web_socket: WebSocketApp, web_socket_thread: threading.Threa
     web_socket_thread.join()
 
 
+@yaspin(text="Checking interface mode...")
+def check_inteface_mode():
+    """
+    Checks if the wireless interface has been set to the Monitor mode.
+    """
+    interface_info = subprocess.run(
+        ["iwconfig", f"{DEFAULT_INTERFACE}mon"], capture_output=True, text=True
+    ).stdout
+    try:
+        # Parse out only the interface mode.
+        interface_mode = interface_info.split("Mode:", 1)[1].split(" ", 1)[0]
+
+        if interface_mode == "Monitor":
+            return True
+    except:
+        return False
+
+    return False
+
+
 def start():
+    if not check_inteface_mode():
+        log_info(f"Failed to start the sniffer due to missing monitor interface.")
+        # 126 - Command invoked cannot execute
+        sys.exit(126)
+
     while True:
         # Create a socket connection to server.
         web_socket, web_socket_thread = connect()
         if not web_socket:
-            # 126 - Command invoked cannot execute
             sys.exit(126)
 
         try:

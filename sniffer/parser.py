@@ -4,7 +4,7 @@ from datetime import datetime
 
 from scapy.layers.dot11 import Dot11ProbeReq
 
-from settings import TIMESTAMP_FORMAT
+from settings import SSID_FILTER, TIMESTAMP_FORMAT
 
 
 def parse_ip_packet_wrapper(web_socket, trigger: threading.Event):
@@ -20,7 +20,7 @@ def parse_ip_packet_wrapper(web_socket, trigger: threading.Event):
             except UnicodeDecodeError:
                 # TODO: Add logging here.
                 pass
-            if ssid:
+            if ssid and ssid not in SSID_FILTER:
                 try:
                     web_socket.send(
                         json.dumps(

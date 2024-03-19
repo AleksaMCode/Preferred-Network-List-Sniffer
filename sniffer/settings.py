@@ -33,3 +33,6 @@ LOGGING = {
     "rotation": "30 days",
     "retention": 5,
 }
+
+# List of SSIDs that the sniffer should ignore.
+SSID_FILTER = []

@@ -87,7 +87,7 @@ export const PnlData = () => {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   layout
-                  key={row.data}
+                  key={row.key}
                   transition={{
                     opacity: { duration: 0.5 },
                   }}

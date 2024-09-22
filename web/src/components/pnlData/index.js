@@ -11,9 +11,11 @@ export const PnlData = () => {
   const channel = dateFormat(new Date(), 'yyyymmdd')
   const socket = '127.0.0.1:3001'
   const ws = useRef(new WebSocket(`ws://${socket}/ws/sub/${channel}`)).current
+  const [isConnected, setIsConnected] = useState(false)
 
   useEffect(() => {
     const handleOpen = () => {
+      setIsConnected(true)
       toast.success('Connection to the server established successfully!')
     }
 
@@ -27,10 +29,14 @@ export const PnlData = () => {
 
     const handleError = () => {
       toast.error("Can't establish connection to the server!")
+      setIsConnected(false)
     }
 
     const handleClose = () => {
-      toast.warn('Connection to the server has been terminated!')
+      if (isConnected) {
+        toast.warn('Connection to the server has been terminated!')
+        setIsConnected(false)
+      }
     }
 
     ws.addEventListener('open', handleOpen)
@@ -45,7 +51,7 @@ export const PnlData = () => {
       ws.removeEventListener('close', handleClose)
       ws.close()
     }
-  }, [ws])
+  }, [])
 
   const scrollToBottom = () => {
     if (bottomRef.current) {

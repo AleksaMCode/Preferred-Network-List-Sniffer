@@ -21,8 +21,10 @@ class="center"
 > All content in this project is intended for security research purposes only.
 
 > [!NOTE]
-> - <p align="justify">I'm currently writing a paper that will thoroughly explain the theory that makes this tool possible. It should be published in the coming weeks.</p>
-> - <p align="justify">To monitor the ongoing work on the PNLS, see the <a href="https://github.com/users/AleksaMCode/projects/1">project's board</a>.</p>
+> <ul>
+> <li><p align="justify">This project is part of my ongoing research into <i>Privacy Protection in Wi-Fi Networks</i>.</p></li>
+>     <ul><li><a href="https://drive.google.com/file/d/1pYm6buyRmGwN5MY7c8_tj93C0iddurI3">Scope of work presentation</a></li></ul>
+> <li><p align="justify">To monitor the ongoing work on the PNLS, see the <a href="https://github.com/users/AleksaMCode/projects/1">project's board</a>.</p></li>
 
 ## Table of contents
 - [Preferred Network List Sniffer - PNLS](#preferred-network-list-sniffer---pnls)

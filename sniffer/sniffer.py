@@ -35,7 +35,7 @@ def capture_traffic(web_socket: WebSocketApp, web_socket_thread: threading.Threa
 
 
 @yaspin(text="Checking interface mode...")
-def check_inteface_mode():
+def check_interface_mode():
     """
     Checks if the wireless interface has been set to the Monitor mode.
     """
@@ -55,8 +55,8 @@ def check_inteface_mode():
 
 
 def start():
-    if not check_inteface_mode():
-        log_info(f"Failed to start the sniffer due to missing monitor interface.")
+    if not check_interface_mode():
+        log_info("Failed to start the sniffer due to missing monitor interface.")
         # 126 - Command invoked cannot execute
         sys.exit(126)
 

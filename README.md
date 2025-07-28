@@ -73,7 +73,7 @@ class="center"
 
 <p align="center">
 <img
-src="./resources/pnls-device -1.jpg?raw=true"
+src="./resources/pnls-device_1.jpg?raw=true"
 alt="PNLS RPi 4 device"
 class="center"
 />
@@ -85,7 +85,7 @@ class="center"
 
 <p align="center">
 <img
-src="./resources/pnls-device -2.jpg?raw=true"
+src="./resources/pnls-device_2.jpg?raw=true"
 alt="PNLS RPi 4 device AWUS036ACS"
 class="center"
 />
@@ -97,7 +97,7 @@ class="center"
 
 <p align="center">
 <img
-src="./resources/pnls-device -3.jpg?raw=true"
+src="./resources/pnls-device_3.jpg?raw=true"
 alt="PNLS RPi 4 device AWUS036ACM"
 class="center"
 />
@@ -170,7 +170,7 @@ alt="PNLS Kali screenshot"
 class="center"
 />
 <p align="center">
-    <label><b>Fig. 3</b>: PNLS screenshot</label>
+    <label><b>Fig. 5</b>: PNLS screenshot</label>
     </p>
 </p>
 
@@ -203,7 +203,7 @@ alt="PNLS system deployment diagram"
 class="center"
 />
 <p align="center">
-    <label><b>Fig. 4</b>: PNLS system deployment diagram</label>
+    <label><b>Fig. 6</b>: PNLS system deployment diagram</label>
     </p>
 </p>
 
@@ -224,7 +224,7 @@ alt="pub-sub sequence diagram"
 class="center"
 />
 <p align="center">
-    <label><b>Fig. 5</b>: PNLS Pub-Sub model sequence diagram</label>
+    <label><b>Fig. 7</b>: PNLS Pub-Sub model sequence diagram</label>
     </p>
 </p>
 
@@ -243,7 +243,7 @@ width="90%"
 class="center"
 />
 <p align="center">
-    <label><b>Fig. 6</b>: PNLS web - example with test SSIDs</label>
+    <label><b>Fig. 8</b>: PNLS web - example with test SSIDs</label>
     </p>
 </p>
 

@@ -36,7 +36,7 @@ pip3 install -r requirements.txt
 ```shell
 python3 pnls.py
 ```
-Serve without hot reload will be available on `localhost:3001/`.
+Server without hot reload will be available on `localhost:3001/`.
 
 > [!WARNING]
 > In order to have ASGI server running, you first need to run a Redis server, otherwise the server will not start.

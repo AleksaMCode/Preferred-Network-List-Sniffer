@@ -73,13 +73,37 @@ class="center"
 
 <p align="center">
 <img
-src="./resources/pnls-device.jpg?raw=true"
-alt="PNLS system overview"
+src="./resources/pnls-device -1.jpg?raw=true"
+alt="PNLS RPi 4 device"
 class="center"
 />
 <p align="center">
     <label><b>Fig. 2:</b>
-     PNLS - RPi 4 with an external antena and a battery bank</label>
+     PNLS running on a RPi 4 with an external antena and a battery bank</label>
+    </p>
+</p>
+
+<p align="center">
+<img
+src="./resources/pnls-device -2.jpg?raw=true"
+alt="PNLS RPi 4 device AWUS036ACS"
+class="center"
+/>
+<p align="center">
+    <label><b>Fig. 3:</b>
+     PNLS running on a RPi 4 with a case with an <a href="https://alfa-network.eu/awus036acs">AWUS036ACS</a> antena</label>
+    </p>
+</p>
+
+<p align="center">
+<img
+src="./resources/pnls-device -3.jpg?raw=true"
+alt="PNLS RPi 4 device AWUS036ACM"
+class="center"
+/>
+<p align="center">
+    <label><b>Fig. 4:</b>
+     PNLS running on a RPi 4 with an <a href="https://alfa-network.eu/awus036acs">AWUS036ACM</a> antena</label>
     </p>
 </p>
 

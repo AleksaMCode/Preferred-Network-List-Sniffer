@@ -17,6 +17,8 @@ from socket_manager import connect, disconnect, trigger
 # Create a logger.
 create_logger(f"{Path(__file__).stem}.log")
 
+INTERFACE = ""
+
 
 @yaspin(text="Capturing Probe Requests...")
 def capture_traffic(web_socket: WebSocketApp, web_socket_thread: threading.Thread):
@@ -24,7 +26,7 @@ def capture_traffic(web_socket: WebSocketApp, web_socket_thread: threading.Threa
     Captures Wi-Fi traffic and publish SSIDs and other information.
     """
     sniffer = AsyncSniffer(
-        iface=f"{DEFAULT_INTERFACE}mon",
+        iface=f"{INTERFACE}",
         prn=parse_ip_packet_wrapper(web_socket, trigger),
         store=False,
         stop_filter=lambda x: trigger.is_set(),
@@ -35,28 +37,34 @@ def capture_traffic(web_socket: WebSocketApp, web_socket_thread: threading.Threa
 
 
 @yaspin(text="Checking interface mode...")
-def check_inteface_mode():
+def check_interface_mode():
     """
     Checks if the wireless interface has been set to the Monitor mode.
     """
-    interface_info = subprocess.run(
-        ["iwconfig", f"{DEFAULT_INTERFACE}mon"], capture_output=True, text=True
-    ).stdout
-    try:
-        # Parse out only the interface mode.
-        interface_mode = interface_info.split("Mode:", 1)[1].split(" ", 1)[0]
+    global INTERFACE
+    interfaces_to_try = [f"{DEFAULT_INTERFACE}mon", DEFAULT_INTERFACE]
 
-        if interface_mode == "Monitor":
-            return True
-    except:
-        return False
+    for interface in interfaces_to_try:
+        try:
+            interface_info = subprocess.run(
+                ["iwconfig", interface], capture_output=True, text=True
+            ).stdout
+
+            if "Mode:" in interface_info:
+                # Parse out only the interface mode.
+                interface_mode = interface_info.split("Mode:", 1)[1].split(" ", 1)[0]
+                if interface_mode.strip() == "Monitor":
+                    INTERFACE = interface
+                    return True
+        except:
+            return False
 
     return False
 
 
 def start():
-    if not check_inteface_mode():
-        log_info(f"Failed to start the sniffer due to missing monitor interface.")
+    if not check_interface_mode():
+        log_info("Failed to start the sniffer due to missing monitor interface.")
         # 126 - Command invoked cannot execute
         sys.exit(126)
 

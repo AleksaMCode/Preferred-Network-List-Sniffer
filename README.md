@@ -21,8 +21,10 @@ class="center"
 > All content in this project is intended for security research purposes only.
 
 > [!NOTE]
-> - <p align="justify">I'm currently writing a paper that will thoroughly explain the theory that makes this tool possible. It should be published in the coming weeks.</p>
-> - <p align="justify">To monitor the ongoing work on the PNLS, see the <a href="https://github.com/users/AleksaMCode/projects/1">project's board</a>.</p>
+> <ul>
+> <li><p align="justify">This project is part of my ongoing research into <i>Privacy Protection in Wi-Fi Networks</i>.</p></li>
+>     <ul><li><a href="https://drive.google.com/file/d/1pYm6buyRmGwN5MY7c8_tj93C0iddurI3">Scope of work presentation</a></li></ul>
+> <li><p align="justify">To monitor the ongoing work on the PNLS, see the <a href="https://github.com/users/AleksaMCode/projects/1">project's board</a>.</p></li>
 
 ## Table of contents
 - [Preferred Network List Sniffer - PNLS](#preferred-network-list-sniffer---pnls)
@@ -71,13 +73,37 @@ class="center"
 
 <p align="center">
 <img
-src="./resources/pnls-device.jpg?raw=true"
-alt="PNLS system overview"
+src="./resources/pnls-device_1.jpg?raw=true"
+alt="PNLS RPi 4 device"
 class="center"
 />
 <p align="center">
     <label><b>Fig. 2:</b>
-     PNLS - RPi 4 with an external antena and a battery bank</label>
+     PNLS running on a RPi 4 with an external antena and a battery bank</label>
+    </p>
+</p>
+
+<p align="center">
+<img
+src="./resources/pnls-device_2.jpg?raw=true"
+alt="PNLS RPi 4 device AWUS036ACS"
+class="center"
+/>
+<p align="center">
+    <label><b>Fig. 3:</b>
+     PNLS running on a RPi 4 with a case with an <a href="https://alfa-network.eu/awus036acs">AWUS036ACS</a> antena</label>
+    </p>
+</p>
+
+<p align="center">
+<img
+src="./resources/pnls-device_3.jpg?raw=true"
+alt="PNLS RPi 4 device AWUS036ACM"
+class="center"
+/>
+<p align="center">
+    <label><b>Fig. 4:</b>
+     PNLS running on a RPi 4 with an <a href="https://alfa-network.eu/awus036acs">AWUS036ACM</a> antena</label>
     </p>
 </p>
 
@@ -144,7 +170,7 @@ alt="PNLS Kali screenshot"
 class="center"
 />
 <p align="center">
-    <label><b>Fig. 3</b>: PNLS screenshot</label>
+    <label><b>Fig. 5</b>: PNLS screenshot</label>
     </p>
 </p>
 
@@ -177,7 +203,7 @@ alt="PNLS system deployment diagram"
 class="center"
 />
 <p align="center">
-    <label><b>Fig. 4</b>: PNLS system deployment diagram</label>
+    <label><b>Fig. 6</b>: PNLS system deployment diagram</label>
     </p>
 </p>
 
@@ -198,7 +224,7 @@ alt="pub-sub sequence diagram"
 class="center"
 />
 <p align="center">
-    <label><b>Fig. 5</b>: PNLS Pub-Sub model sequence diagram</label>
+    <label><b>Fig. 7</b>: PNLS Pub-Sub model sequence diagram</label>
     </p>
 </p>
 
@@ -217,7 +243,7 @@ width="90%"
 class="center"
 />
 <p align="center">
-    <label><b>Fig. 6</b>: PNLS web - example with test SSIDs</label>
+    <label><b>Fig. 8</b>: PNLS web - example with test SSIDs</label>
     </p>
 </p>
 

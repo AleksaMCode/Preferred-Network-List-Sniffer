@@ -1,5 +1,4 @@
 from loguru import logger
-
 from settings import LOGGING
 
 

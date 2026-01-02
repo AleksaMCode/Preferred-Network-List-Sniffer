@@ -3,8 +3,6 @@ import json
 
 import redis
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect, WebSocketException
-from starlette import status
-
 from logger import (
     log_error_async,
     log_exception_async,
@@ -13,6 +11,7 @@ from logger import (
 )
 from message_broker.websocket_broker import socket_broker
 from settings import CHANNEL_ID
+from starlette import status
 from utils.pnls_util import shutdown
 
 router = APIRouter(prefix="/ws")

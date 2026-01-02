@@ -1,5 +1,4 @@
 from redis import asyncio as aioredis
-
 from settings import SERVER
 
 

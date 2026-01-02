@@ -3,11 +3,10 @@ import json
 
 import redis
 from fastapi import WebSocket
-from redis import asyncio as aioredis
-from starlette.websockets import WebSocketState
-
 from message_broker.message_broker import MessageBroker
+from redis import asyncio as aioredis
 from settings import CHANNEL_ID
+from starlette.websockets import WebSocketState
 
 
 class WebSocketBroker:

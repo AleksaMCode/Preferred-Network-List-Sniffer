@@ -6,13 +6,12 @@ from parser import parse_ip_packet_wrapper
 from pathlib import Path
 from urllib.error import HTTPError
 
-from scapy.sendrecv import AsyncSniffer
-from websocket import WebSocketApp
-from yaspin import yaspin
-
 from logger import create_logger, log_exception, log_info, log_warning
+from scapy.sendrecv import AsyncSniffer
 from settings import DEFAULT_INTERFACE
 from socket_manager import connect, disconnect, trigger
+from websocket import WebSocketApp
+from yaspin import yaspin
 
 # Create a logger.
 create_logger(f"{Path(__file__).stem}.log")

@@ -36,3 +36,6 @@ LOGGING = {
 
 # List of SSIDs that the sniffer should ignore.
 SSID_FILTER = []
+
+# Example MAC address format: xx:xx:xx:xx:xx:xx
+MAC_FILTER = []

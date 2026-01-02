@@ -1,3 +1,6 @@
+# Pycharm files
+.idea
+
 # Redis files
 *.rdb
 

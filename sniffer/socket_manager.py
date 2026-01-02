@@ -1,11 +1,10 @@
 import threading
 from time import sleep
 
-from websocket import WebSocketApp
-from yaspin import yaspin
-
 from logger import log_error, log_exception, log_info
 from settings import CHANNEL_ID, DELAY, MAX_RECONNECT, SERVER
+from websocket import WebSocketApp
+from yaspin import yaspin
 
 trigger = threading.Event()
 

@@ -3,8 +3,7 @@ import threading
 from datetime import datetime
 
 from scapy.layers.dot11 import Dot11ProbeReq
-
-from settings import SSID_FILTER, TIMESTAMP_FORMAT
+from settings import MAC_FILTER, SSID_FILTER, TIMESTAMP_FORMAT
 
 
 def parse_ip_packet_wrapper(web_socket, trigger: threading.Event):
@@ -20,7 +19,7 @@ def parse_ip_packet_wrapper(web_socket, trigger: threading.Event):
             except UnicodeDecodeError:
                 # TODO: Add logging here.
                 pass
-            if ssid and ssid not in SSID_FILTER:
+            if ssid and ssid not in SSID_FILTER and packet.addr2 not in MAC_FILTER:
                 try:
                     web_socket.send(
                         json.dumps(
